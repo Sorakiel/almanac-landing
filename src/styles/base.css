@@ -14,7 +14,7 @@ body {
   font-family: var(--font-display);
   position: relative;
   overflow-x: clip;
-  transition: background .6s ease, color .6s ease, background-image .6s ease;
+  transition: background .6s ease, color .6s ease;
   -webkit-font-smoothing: antialiased;
   /* Faint graph-paper grid — a constant, low-key nod to "this is built like software,"
      not just decorated like a marketing page. Kept subtle enough to read as texture. */

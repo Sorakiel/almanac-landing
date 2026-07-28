@@ -39,6 +39,9 @@
 .scatter-cell.breathe {
   animation: cellBreathe 3.6s ease-in-out infinite;
 }
+.scatter-grid.paused .scatter-cell.breathe {
+  animation-play-state: paused;
+}
 @keyframes cellBreathe {
   0%, 100% { opacity: .5; }
   50% { opacity: 1; }

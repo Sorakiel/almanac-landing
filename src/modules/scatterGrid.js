@@ -33,9 +33,19 @@ export function assembleScatterGrid(grid) {
 
   setTimeout(() => {
     if (reduced) return;
-    grid.querySelectorAll('.scatter-cell').forEach((cell) => {
+    // Only the ~10% "active" (colored) cells actually read as breathing — the
+    // other 90% are a barely-visible border tint, so animating all ~600 of
+    // them forever was pure wasted compositor work for no visible gain.
+    grid.querySelectorAll('.scatter-cell.active').forEach((cell) => {
       cell.classList.add('breathe');
       cell.style.animationDelay = `${(-(Math.random() * 3.6)).toFixed(2)}s`;
     });
+
+    // The grid breathes for the rest of the page's life once started — pause
+    // it while scrolled out of view instead of animating off-screen pixels.
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => grid.classList.toggle('paused', !entry.isIntersecting));
+    });
+    io.observe(grid);
   }, 1300);
 }
