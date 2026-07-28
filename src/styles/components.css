@@ -183,6 +183,7 @@
   color: #1B1000;
   box-shadow: 0 8px 24px -8px rgba(239, 136, 87, .55);
 }
+.btn-primary:hover { box-shadow: 0 14px 38px -10px rgba(239, 136, 87, .8); }
 .btn-ghost {
   background: transparent;
   border-color: var(--border);
@@ -239,6 +240,37 @@
   0% { background-position: 0% 0; }
   100% { background-position: -220% 0; }
 }
+
+/* ---------- ambient glow ---------- */
+/* Soft radial color blobs that sit behind section content (sections are already
+   position:relative + z-index:2 from base.css, so z-index:0 here is enough to
+   stay behind everything without extra stacking-context wrangling). Pure decoration,
+   opacity is intentionally low — the goal is atmosphere, not a colored spotlight. */
+.glow {
+  position: absolute;
+  /* Negative, not 0: sections are position:relative + z-index:2 (their own stacking
+     context), and most of their content is plain non-positioned flow — which paints
+     BEFORE a z-index:0 positioned sibling per the stacking spec. A negative index is
+     the only reliable way to stay behind static-flow content within that context. */
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: var(--glow-opacity);
+  transition: opacity .6s ease;
+}
+.glow--accent { background: radial-gradient(circle, var(--accent) 0%, transparent 72%); }
+.glow--teal { background: radial-gradient(circle, var(--teal) 0%, transparent 72%); }
+.glow--amber { background: radial-gradient(circle, var(--amber) 0%, transparent 72%); }
+
+/* ---------- terminal window-chrome dots ---------- */
+/* Real macOS-style traffic lights instead of generic grey dots — used on every
+   card styled as a little window (hero demo, product fan-cards, stack terminal),
+   so the "this is a terminal/editor" signal repeats consistently across the page. */
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; }
+.tl-dot.tl-r { background: var(--tl-red) !important; }
+.tl-dot.tl-y { background: var(--tl-yellow) !important; }
+.tl-dot.tl-g { background: var(--tl-green) !important; }
 
 /* ---------- reveal ---------- */
 .reveal {

@@ -46,6 +46,7 @@
 
   <div class="wrap">
     <section class="hero">
+      <div class="glow glow--accent glow-hero" aria-hidden="true"></div>
       <div class="scatter-grid" id="scatterGrid"></div>
       <div class="hero-copy reveal">
         <span class="eyebrow">// LIFE OS ДЛЯ ПРИВЫЧЕК И ТРЕНИРОВОК</span>
@@ -61,10 +62,13 @@
       </div>
 
       <div class="hero-demo reveal">
+        <div class="demo-card-ghost" aria-hidden="true">
+          <div class="demo-card-head"><span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span></div>
+        </div>
         <div class="demo-card">
           <div class="demo-card-head">
-            <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
-            <span class="demo-title">СЕГОДНЯ</span>
+            <span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span>
+            <span class="demo-title">// СЕГОДНЯ</span>
           </div>
           <div class="demo-ring tick-ring" id="demoRing">
             <svg id="demoRingSvg"></svg>
@@ -87,6 +91,7 @@
     </section>
 
     <section id="manifesto">
+      <span class="manifesto-tag mono-label">/* manifesto.txt */</span>
       <p class="manifesto-text" id="manifestoText">
         <span class="ms-line">Almanac — не стартап и не очередной трекер для галочки. </span>
         <span class="ms-line">Это система, которую я строю для себя — и нескольких близких людей, — </span>
@@ -96,6 +101,8 @@
     </section>
 
     <section id="product">
+      <div class="glow glow--teal glow-product-l" aria-hidden="true"></div>
+      <div class="glow glow--amber glow-product-r" aria-hidden="true"></div>
       <div class="section-head reveal">
         <span class="eyebrow">// Возможности</span>
         <h2>Всё в одном приложении</h2>
@@ -104,7 +111,7 @@
 
       <div class="fan-stage reveal" id="fanStage">
         <div class="fan-card" style="--i:0">
-          <div class="fc-head"><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-label">ДАШБОРД</span></div>
+          <div class="fc-head"><span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span><span class="fc-label">ДАШБОРД</span></div>
           <div class="fc-ring tick-ring" id="fcRingDashboard" style="--tick-track:#33333a;--tick-fill:#EF8857">
             <svg id="fcRingDashboardSvg"></svg>
             <div class="fc-ring-label">65%</div>
@@ -112,12 +119,12 @@
           <p class="fc-quote">«Дисциплина — выбор между тем, что хочешь сейчас, и тем, что хочешь больше всего.»</p>
         </div>
         <div class="fan-card" style="--i:1">
-          <div class="fc-head"><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-label">ХИТМЭП</span></div>
+          <div class="fc-head"><span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span><span class="fc-cat fc-cat--teal"></span><span class="fc-label">ХИТМЭП</span></div>
           <div class="fc-heat" id="fcHeat"></div>
           <p class="fc-note">РАСТЯЖКА · ЛУЧШИЙ СТРИК 21 ДЕНЬ</p>
         </div>
         <div class="fan-card" style="--i:2">
-          <div class="fc-head"><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-label">ТРЕНИРОВКА</span></div>
+          <div class="fc-head"><span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span><span class="fc-cat fc-cat--amber"></span><span class="fc-label">ТРЕНИРОВКА</span></div>
           <div class="fc-rows">
             <div class="fc-row"><span>Присед 4×8</span><span class="done">100кг ✓</span></div>
             <div class="fc-row"><span>Выпады 3×12</span><span class="done">✓</span></div>
@@ -126,7 +133,7 @@
           <p class="fc-note">НОГИ · ДЕНЬ 12 · +5КГ К ПРИСЕДУ</p>
         </div>
         <div class="fan-card fc-coffee" style="--i:3">
-          <div class="fc-head"><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-label">COFFEE</span></div>
+          <div class="fc-head"><span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span><span class="fc-label">COFFEE</span></div>
           <div class="fc-ring tick-ring" id="fcRingCoffee" style="--tick-track:#D9C9AC;--tick-fill:#EF8857">
             <svg id="fcRingCoffeeSvg"></svg>
             <div class="fc-ring-label">65%</div>
@@ -136,9 +143,9 @@
       </div>
 
       <div class="fan-captions reveal">
-        <div class="fan-cap"><h4>Дашборд</h4><p>Один экран отвечает, где вы сейчас — без переключения вкладок.</p></div>
-        <div class="fan-cap"><h4>Хитмэп</h4><p>Стрик виден на 90 дней вперёд и назад, с мягкими правилами прогресса.</p></div>
-        <div class="fan-cap"><h4>Тренировки</h4><p>Подходы, вес, повторы — и прогресс между тренировками виден сразу.</p></div>
+        <div class="fan-cap fan-cap--accent"><h4>Дашборд</h4><p>Один экран отвечает, где вы сейчас — без переключения вкладок.</p></div>
+        <div class="fan-cap fan-cap--teal"><h4>Хитмэп</h4><p>Стрик виден на 90 дней вперёд и назад, с мягкими правилами прогресса.</p></div>
+        <div class="fan-cap fan-cap--amber"><h4>Тренировки</h4><p>Подходы, вес, повторы — и прогресс между тренировками виден сразу.</p></div>
         <div class="fan-cap"><h4>Темы</h4><p>Тёмная по умолчанию, тёплая coffee — для дня. Один и тот же акцент.</p></div>
       </div>
 
@@ -182,6 +189,7 @@
     </section>
 
     <section id="how">
+      <div class="glow glow--accent glow-how" aria-hidden="true"></div>
       <div class="section-head reveal">
         <span class="eyebrow">// Как это работает</span>
         <h2>От установки до первого стрика — 4 шага</h2>
@@ -214,6 +222,7 @@
     </section>
 
     <section id="support">
+      <div class="glow glow--accent glow-support" aria-hidden="true"></div>
       <div class="support-card reveal">
         <div>
           <span class="eyebrow">// Поддержать</span>
@@ -222,10 +231,17 @@
           <p>Поддержать разработку можно добровольно — это помогает быстрее доводить фичи и оплачивать инфраструктуру (базу данных, домен, сборки). Необязательно, но приятно.</p>
         </div>
         <div class="support-actions">
-          <div class="support-receipt">
-            <div class="sr-row"><span>БАЗА ДАННЫХ</span><b>Supabase</b></div>
-            <div class="sr-row"><span>ДОМЕН И ХОСТИНГ</span><b>Vercel</b></div>
-            <div class="sr-row"><span>СБОРКИ</span><b>GitHub Actions</b></div>
+          <div class="support-receipt term" id="supportTerm">
+            <div class="term-head">
+              <span class="tl-dot tl-r"></span><span class="tl-dot tl-y"></span><span class="tl-dot tl-g"></span>
+              <span class="term-path">~/almanac/stack</span>
+            </div>
+            <div class="term-body">
+              <div class="term-line"><span class="term-prompt">$</span>stack --database<span class="term-val">Supabase</span></div>
+              <div class="term-line"><span class="term-prompt">$</span>stack --hosting<span class="term-val">Vercel</span></div>
+              <div class="term-line"><span class="term-prompt">$</span>stack --ci<span class="term-val">GitHub Actions</span></div>
+              <div class="term-line term-cursor-line"><span class="term-prompt">$</span><span class="term-cursor"></span></div>
+            </div>
           </div>
           <a class="btn btn-primary btn-lg magnetic" href="https://boosty.to/sorakield" target="_blank" rel="noopener" id="boostyLink">Поддержать на Boosty</a>
           <span class="support-note">Любая сумма — от чашки кофе до часов разработки.</span>

@@ -14,8 +14,20 @@ body {
   font-family: var(--font-display);
   position: relative;
   overflow-x: clip;
-  transition: background .6s ease, color .6s ease;
+  transition: background .6s ease, color .6s ease, background-image .6s ease;
   -webkit-font-smoothing: antialiased;
+  /* Faint graph-paper grid — a constant, low-key nod to "this is built like software,"
+     not just decorated like a marketing page. Kept subtle enough to read as texture. */
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 14%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+[data-theme="coffee"] body {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px);
 }
 
 h1, h2, h3 {
@@ -87,7 +99,8 @@ section {
 }
 
 .section-head h2 {
-  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  letter-spacing: -.025em;
   margin-top: 8px;
 }
 

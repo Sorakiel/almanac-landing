@@ -16,6 +16,7 @@ import { initInstallModal } from './modules/installModal.js';
 import { initPlatformDownloads } from './modules/platformDownloads.js';
 import { initFaq } from './modules/faq.js';
 import { initTicker } from './modules/ticker.js';
+import { initTerminal } from './modules/terminal.js';
 
 // Effects that don't depend on the preloader can start immediately.
 initCursor();
@@ -30,6 +31,7 @@ initInstallModal();
 initPlatformDownloads();
 initFaq();
 initTicker();
+initTerminal();
 
 const scatterGrid = buildScatterGrid();
 const updateRing = initHeroDemo();

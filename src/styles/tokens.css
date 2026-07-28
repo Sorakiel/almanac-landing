@@ -36,6 +36,15 @@
   --font-mono: 'JetBrains Mono Var', 'JetBrains Mono', ui-monospace, monospace;
 
   --shadow-soft: 0 24px 64px -22px rgba(0, 0, 0, .6);
+  --shadow-card: 0 30px 60px -24px rgba(0, 0, 0, .65), inset 0 1px 0 rgba(255, 255, 255, .05);
+  --inset-hairline: inset 0 1px 0 rgba(255, 255, 255, .05);
+
+  /* macOS-style terminal window-chrome dots — used on every card that mimics a window/terminal. */
+  --tl-red: #FF5F57;
+  --tl-yellow: #FEBC2E;
+  --tl-green: #28C840;
+
+  --glow-opacity: .38;
 }
 
 [data-theme="coffee"] {
@@ -48,4 +57,7 @@
   --muted: #6E5F4E;
   --muted-2: #8a7a66;
   --shadow-soft: 0 24px 54px -24px rgba(42, 32, 24, .28);
+  --shadow-card: 0 30px 54px -26px rgba(42, 32, 24, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+  --inset-hairline: inset 0 1px 0 rgba(255, 255, 255, .5);
+  --glow-opacity: .16;
 }
