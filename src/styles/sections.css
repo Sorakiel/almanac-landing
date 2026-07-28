@@ -384,7 +384,16 @@
   color: var(--muted-2); transition: transform .3s ease;
 }
 .faq-item[open] summary::after { transform: rotate(45deg); color: var(--accent); }
-.faq-item p { padding: 0 4px 20px; color: var(--muted); max-width: 65ch; line-height: 1.6; cursor: pointer; }
+.faq-item p {
+  /* Override <details>'s native display:none-when-closed — display:none can't be
+     transitioned, which is why this used to snap open/closed instead of animating. */
+  display: block;
+  color: var(--muted); max-width: 65ch; line-height: 1.6; cursor: pointer;
+  padding: 0 4px; margin: 0;
+  opacity: 0; max-height: 0; overflow: hidden;
+  transition: opacity .3s ease, max-height .4s cubic-bezier(.4,0,.2,1), padding-bottom .4s ease;
+}
+.faq-item[open] p { opacity: 1; max-height: 220px; padding-bottom: 20px; }
 
 @media (max-width: 1100px) and (min-width: 861px) {
   .support-grid { grid-template-columns: repeat(2, 1fr); }

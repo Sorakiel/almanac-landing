@@ -12,6 +12,7 @@ export function initThemeFlip() {
   const pin = document.getElementById('themePin');
 
   let manualOverride = false;
+  let overridePinnedAt = 0;
   let pendingTimer = null;
 
   function setTheme(value) {
@@ -37,12 +38,20 @@ export function initThemeFlip() {
   }, { threshold: [0, 0.2, 0.4, 0.65, 0.8, 1] });
   io.observe(section);
 
+  // A manual pin sticks at the moment you click it, but only for as long as you
+  // stay roughly where you were — scroll a meaningful distance in either
+  // direction and auto-detection resumes. Previously this only cleared at
+  // scrollY < 40, so pinning anywhere mid-page silently disabled the themeflip
+  // section's auto-flip for the rest of the visit.
   window.addEventListener('scroll', () => {
-    if (window.scrollY < 40) manualOverride = false;
+    if (manualOverride && Math.abs(window.scrollY - overridePinnedAt) > 150) {
+      manualOverride = false;
+    }
   }, { passive: true });
 
   pin.addEventListener('click', () => {
     manualOverride = true;
+    overridePinnedAt = window.scrollY;
     clearTimeout(pendingTimer);
     setTheme(root.getAttribute('data-theme') === 'dark' ? 'coffee' : 'dark');
   });
