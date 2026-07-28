@@ -384,16 +384,26 @@
   color: var(--muted-2); transition: transform .3s ease;
 }
 .faq-item[open] summary::after { transform: rotate(45deg); color: var(--accent); }
-.faq-item p {
-  /* Override <details>'s native display:none-when-closed — display:none can't be
-     transitioned, which is why this used to snap open/closed instead of animating. */
-  display: block;
-  color: var(--muted); max-width: 65ch; line-height: 1.6; cursor: pointer;
-  padding: 0 4px; margin: 0;
-  opacity: 0; max-height: 0; overflow: hidden;
-  transition: opacity .3s ease, max-height .4s cubic-bezier(.4,0,.2,1), padding-bottom .4s ease;
+.faq-item .faq-answer {
+  /* grid-rows 0fr->1fr animates to the answer's *actual* height, whatever that is —
+     a fixed max-height guess (the previous approach) looks fine for one answer length
+     and wrong for every other, since short answers hit their real height long before
+     the transition timer ends while long ones use the full range: inconsistent motion
+     across items. This also sidesteps <details>'s native display:none-when-closed,
+     which can't be transitioned at all — that's why this used to snap instead of
+     animating in the first place. */
+  display: grid !important;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1), opacity .3s ease;
 }
-.faq-item[open] p { opacity: 1; max-height: 220px; padding-bottom: 20px; }
+.faq-item[open] .faq-answer { grid-template-rows: 1fr; opacity: 1; }
+.faq-item .faq-answer > p {
+  overflow: hidden;
+  min-height: 0;
+  color: var(--muted); max-width: 65ch; line-height: 1.6; cursor: pointer;
+  padding: 0 4px 20px; margin: 0;
+}
 
 @media (max-width: 1100px) and (min-width: 861px) {
   .support-grid { grid-template-columns: repeat(2, 1fr); }

@@ -98,10 +98,12 @@ section {
   line-height: 1.6;
 }
 
-/* fine-pointer only: custom cursor engages */
+/* fine-pointer only: custom cursor engages. Covers every element (not just a/button) and
+   wins over any element's own `cursor:` declaration (e.g. .faq-item p sets cursor:pointer)
+   — otherwise the native cursor reappears over anything that sets its own cursor value. */
 @media (pointer: fine) {
-  body.has-cursor, body.has-cursor a, body.has-cursor button {
-    cursor: none;
+  body.has-cursor, body.has-cursor * {
+    cursor: none !important;
   }
 }
 

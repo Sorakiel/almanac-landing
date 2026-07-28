@@ -13,6 +13,7 @@ import { initProductSection } from './modules/productSection.js';
 import { initMarquee } from './modules/marquee.js';
 import { initThemeFlip } from './modules/themeFlip.js';
 import { initInstallModal } from './modules/installModal.js';
+import { initPlatformDownloads } from './modules/platformDownloads.js';
 import { initFaq } from './modules/faq.js';
 import { initTicker } from './modules/ticker.js';
 
@@ -26,6 +27,7 @@ initProductSection();
 initMarquee();
 initThemeFlip();
 initInstallModal();
+initPlatformDownloads();
 initFaq();
 initTicker();
 

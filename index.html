@@ -241,19 +241,19 @@
       <div class="reveal">
         <details class="faq-item" open>
           <summary>Это бесплатно?</summary>
-          <p>Да, полностью. Поддержать разработку можно добровольно — через Boosty, в разделе выше, но это ни на что не влияет.</p>
+          <div class="faq-answer"><p>Да, полностью. Поддержать разработку можно добровольно — через Boosty, в разделе выше, но это ни на что не влияет.</p></div>
         </details>
         <details class="faq-item">
           <summary>Мои данные видят другие пользователи?</summary>
-          <p>Нет. Row-Level Security на уровне Postgres: каждый видит только свои привычки, тренировки и записи — это гарантия базы данных, а не только интерфейса.</p>
+          <div class="faq-answer"><p>Нет. Row-Level Security на уровне Postgres: каждый видит только свои привычки, тренировки и записи — это гарантия базы данных, а не только интерфейса.</p></div>
         </details>
         <details class="faq-item">
           <summary>На каких устройствах это работает?</summary>
-          <p>Android — apk из GitHub Releases. iOS, десктоп и любой браузер — как PWA, устанавливается на экран одним тапом.</p>
+          <div class="faq-answer"><p>Android (apk), Windows, macOS и Linux — нативные сборки на Tauri. Плюс сам сайт работает в любом браузере.</p></div>
         </details>
         <details class="faq-item">
           <summary>Исходный код открыт?</summary>
-          <p>Да, репозиторий на GitHub — ссылка в разделе установки выше.</p>
+          <div class="faq-answer"><p>Да, репозиторий на GitHub — ссылка в разделе установки выше.</p></div>
         </details>
       </div>
     </section>
@@ -273,19 +273,34 @@
     <div class="im-backdrop" data-close-install></div>
     <div class="im-panel" role="dialog" aria-modal="true" aria-labelledby="imTitle">
       <button class="im-close" data-close-install aria-label="Закрыть">×</button>
-      <h3 id="imTitle">Установить Almanac</h3>
+      <div class="im-head-row">
+        <h3 id="imTitle">Установить Almanac</h3>
+        <span class="im-version mono-label">v<span data-release-version>…</span></span>
+      </div>
+      <a class="im-website-link" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">
+        Или сразу открыть сайт, без установки →
+      </a>
+
       <div class="im-tabs">
         <button class="im-tab" data-tab="android">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 7v7M9 11l3 3 3-3" /></svg>
           <span>Android</span>
         </button>
+        <button class="im-tab" data-tab="windows">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
+          <span>Windows</span>
+        </button>
+        <button class="im-tab" data-tab="macos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4z" /><path d="M2 19h20l-2-3H4l-2 3Z" /></svg>
+          <span>macOS</span>
+        </button>
+        <button class="im-tab" data-tab="linux">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M7.5 10.5 10 13l-2.5 2.5M12 15.5h4.5" /></svg>
+          <span>Linux</span>
+        </button>
         <button class="im-tab" data-tab="ios">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 12V6M9.5 8.5 12 6l2.5 2.5" /><path d="M9 15h6" /></svg>
           <span>iOS</span>
-        </button>
-        <button class="im-tab" data-tab="desktop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
-          <span>Десктоп</span>
         </button>
       </div>
 
@@ -294,10 +309,49 @@
           <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 7v7M9 11l3 3 3-3" /></svg></span>
           <div><h4>Android</h4><p>Прямая установка apk, без Google Play</p></div>
         </div>
-        <a class="btn btn-primary btn-lg magnetic" href="https://github.com/Sorakiel/almanac/releases/latest" target="_blank" rel="noopener">Скачать APK →</a>
+        <a class="btn btn-primary btn-lg magnetic" id="dlAndroid" href="https://github.com/Sorakiel/almanac/releases/latest" target="_blank" rel="noopener">Скачать APK →</a>
         <ol class="im-steps">
-          <li><b>01</b>Откройте ссылку на телефоне — попадёте на страницу последнего релиза GitHub.</li>
-          <li><b>02</b>Скачайте .apk из вложений (Assets) и разрешите установку из неизвестных источников.</li>
+          <li><b>01</b>Откройте ссылку на телефоне.</li>
+          <li><b>02</b>Разрешите установку из неизвестных источников, когда система спросит.</li>
+          <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
+        </ol>
+      </div>
+
+      <div class="im-body" data-panel="windows">
+        <div class="im-platform-head">
+          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg></span>
+          <div><h4>Windows</h4><p>Нативное приложение (Tauri), не PWA</p></div>
+        </div>
+        <a class="btn btn-primary btn-lg magnetic" id="dlWindows" href="https://github.com/Sorakiel/almanac/releases/latest" target="_blank" rel="noopener">Скачать для Windows →</a>
+        <ol class="im-steps">
+          <li><b>01</b>Скачайте и запустите установщик.</li>
+          <li><b>02</b>Если Windows Defender предупредит — «Подробнее» → «Всё равно выполнить» (сборка пока не подписана платным сертификатом).</li>
+          <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
+        </ol>
+      </div>
+
+      <div class="im-body" data-panel="macos">
+        <div class="im-platform-head">
+          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4z" /><path d="M2 19h20l-2-3H4l-2 3Z" /></svg></span>
+          <div><h4>macOS</h4><p>Нативное приложение (Tauri), не PWA</p></div>
+        </div>
+        <a class="btn btn-primary btn-lg magnetic" id="dlMac" href="https://github.com/Sorakiel/almanac/releases/latest" target="_blank" rel="noopener">Скачать для macOS →</a>
+        <ol class="im-steps">
+          <li><b>01</b>Откройте .dmg и перетащите Almanac в Applications.</li>
+          <li><b>02</b>Gatekeeper заблокирует первый запуск («файл повреждён») — это нормально для неподписанной сборки: правый клик по иконке → «Открыть» → «Открыть» ещё раз.</li>
+          <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
+        </ol>
+      </div>
+
+      <div class="im-body" data-panel="linux">
+        <div class="im-platform-head">
+          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M7.5 10.5 10 13l-2.5 2.5M12 15.5h4.5" /></svg></span>
+          <div><h4>Linux</h4><p>AppImage — универсальный, работает везде</p></div>
+        </div>
+        <a class="btn btn-primary btn-lg magnetic" id="dlLinux" href="https://github.com/Sorakiel/almanac/releases/latest" target="_blank" rel="noopener">Скачать AppImage →</a>
+        <ol class="im-steps">
+          <li><b>01</b>Скачайте файл и дайте ему права на запуск: <code>chmod +x Almanac*.AppImage</code>.</li>
+          <li><b>02</b>Запустите двойным кликом или из терминала. Нужны .deb или .rpm — оба лежат на странице релиза.</li>
           <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
         </ol>
       </div>
@@ -305,25 +359,12 @@
       <div class="im-body" data-panel="ios">
         <div class="im-platform-head">
           <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 12V6M9.5 8.5 12 6l2.5 2.5" /><path d="M9 15h6" /></svg></span>
-          <div><h4>iOS / iPadOS</h4><p>Через Safari — как PWA, на экран «Домой»</p></div>
+          <div><h4>iOS / iPadOS</h4><p>Нативного билда пока нет — через Safari как PWA</p></div>
         </div>
         <a class="btn btn-primary btn-lg magnetic" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">Открыть Almanac →</a>
         <ol class="im-steps">
           <li><b>01</b>Откройте ссылку выше в Safari (обязательно в Safari, не в Chrome).</li>
           <li><b>02</b>Кнопка «Поделиться» → «На экран «Домой»».</li>
-          <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
-        </ol>
-      </div>
-
-      <div class="im-body" data-panel="desktop">
-        <div class="im-platform-head">
-          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg></span>
-          <div><h4>Windows, macOS, Linux</h4><p>Как PWA — в любом Chromium-браузере</p></div>
-        </div>
-        <a class="btn btn-primary btn-lg magnetic" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">Открыть Almanac →</a>
-        <ol class="im-steps">
-          <li><b>01</b>Откройте ссылку выше в Chrome, Edge или другом Chromium-браузере.</li>
-          <li><b>02</b>Значок установки в адресной строке → «Установить Almanac».</li>
           <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
         </ol>
       </div>

@@ -20,7 +20,7 @@
 .im-panel {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 560px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -44,11 +44,24 @@
   color: var(--muted);
 }
 .im-close:hover { border-color: var(--accent); color: var(--accent); }
-.im-panel h3 { font-size: 1.3rem; margin-bottom: 22px; }
+
+.im-head-row { display: flex; align-items: baseline; gap: 10px; }
+.im-panel h3 { font-size: 1.3rem; }
+.im-version { color: var(--muted-2); }
+.im-website-link {
+  display: inline-block;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-size: .84rem;
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding-bottom: 1px;
+}
+.im-website-link:hover { border-color: var(--accent); }
 
 .im-tabs {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   margin-bottom: 24px;
   background: var(--bg-alt);
   border-radius: 999px;
@@ -59,16 +72,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   text-align: center;
-  padding: 9px 6px;
+  padding: 9px 4px;
   border-radius: 999px;
-  font-size: .82rem;
+  font-size: .72rem;
   font-weight: 600;
   color: var(--muted);
   transition: background .25s ease, color .25s ease;
+  white-space: nowrap;
 }
-.im-tab svg { width: 15px; height: 15px; flex: none; }
+.im-tab svg { width: 14px; height: 14px; flex: none; }
 .im-tab.active {
   background: linear-gradient(135deg, var(--accent), var(--accent-deep));
   color: #1B1000;
@@ -96,6 +110,15 @@
 .im-steps { display: flex; flex-direction: column; gap: 10px; }
 .im-steps li { display: flex; gap: 10px; font-size: .85rem; color: var(--muted); line-height: 1.5; }
 .im-steps li b { color: var(--text); font-family: var(--font-mono); flex: none; }
+.im-steps code {
+  font-family: var(--font-mono);
+  font-size: .82em;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+  color: var(--text);
+}
 
 @media (max-width: 480px) {
   .im-tab span { display: none; }
