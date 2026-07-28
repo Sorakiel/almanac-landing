@@ -1,0 +1,123 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  position: relative;
+  overflow-x: clip;
+  transition: background .6s ease, color .6s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-weight: 750;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 2;
+}
+
+section {
+  position: relative;
+  z-index: 2;
+}
+
+.mono-label, .eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .72rem;
+  color: var(--muted-2);
+}
+
+.eyebrow {
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: inline-block;
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.section-head h2 {
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  margin-top: 8px;
+}
+
+.section-head p {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+/* fine-pointer only: custom cursor engages */
+@media (pointer: fine) {
+  body.has-cursor, body.has-cursor a, body.has-cursor button {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: opacity .2s ease !important;
+  }
+  .reveal, .scatter-cell {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .fan-stage:not(.fanned) .fan-card,
+  .fan-stage.fanned .fan-card {
+    transform: none !important;
+  }
+  .cursor-dot, .cursor-ring {
+    display: none;
+  }
+}

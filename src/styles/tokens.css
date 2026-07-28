@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'Inter Var';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/Inter-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Var';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/JetBrainsMono-Variable.woff2') format('woff2');
+}
+
+:root {
+  --bg: #0E0E10;
+  --bg-alt: #1B1B1D;
+  --surface: #26262A;
+  --surface-2: #2E2E33;
+  --border: #38383e;
+  --text: #ECE7D8;
+  --muted: #A8A59E;
+  --muted-2: #85817A;
+
+  --accent: #EF8857;
+  --accent-deep: #C2562A;
+  --teal: #2A9D8F;
+  --amber: #C79A3A;
+
+  --radius-lg: 26px;
+  --radius-xl: 38px;
+
+  --font-display: 'Inter Var', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Var', 'JetBrains Mono', ui-monospace, monospace;
+
+  --shadow-soft: 0 24px 64px -22px rgba(0, 0, 0, .6);
+}
+
+[data-theme="coffee"] {
+  --bg: #ECE3D2;
+  --bg-alt: #E6DBC6;
+  --surface: #F4ECDD;
+  --surface-2: #EFE4CE;
+  --border: #D9C9AC;
+  --text: #2A2018;
+  --muted: #6E5F4E;
+  --muted-2: #8a7a66;
+  --shadow-soft: 0 24px 54px -24px rgba(42, 32, 24, .28);
+}
