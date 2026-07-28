@@ -1,58 +1,52 @@
 /**
- * Drives the page's dark/coffee theme two ways:
- *  - automatically, once the #themeflip section is *substantially* in view
- *    (not just brushed past while scrolling through to the next section) —
- *    debounced so a fast scroll-by doesn't flicker the whole page
- *  - manually, via the nav pin button, which overrides auto-detection until
- *    the user scrolls back near the top
+ * The page has a "base" theme (dark by default) that you pick with the nav
+ * pin, and it stays your base — permanently, not just until you scroll away.
+ * The #themeflip section is a small showcase of *the other* theme: once it's
+ * substantially in view, the page shows the opposite of your base; leave the
+ * section and it returns to your base. So it's always "mostly your theme,
+ * with one small stretch of the other one" — never a coin flip that forgets
+ * what you picked.
  */
 export function initThemeFlip() {
   const root = document.documentElement;
   const section = document.getElementById('themeflip');
   const pin = document.getElementById('themePin');
 
-  let manualOverride = false;
-  let overridePinnedAt = 0;
+  let baseTheme = 'dark';
+  let inZone = false;
   let pendingTimer = null;
 
-  function setTheme(value) {
-    root.setAttribute('data-theme', value);
+  function opposite(theme) {
+    return theme === 'dark' ? 'coffee' : 'dark';
   }
 
-  function commit(value, delay) {
+  function applyTheme() {
+    root.setAttribute('data-theme', inZone ? opposite(baseTheme) : baseTheme);
+  }
+
+  function commitZone(value, delay) {
     clearTimeout(pendingTimer);
     pendingTimer = setTimeout(() => {
-      if (!manualOverride) setTheme(value);
+      inZone = value;
+      applyTheme();
     }, delay);
   }
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (manualOverride) return;
-      // Hysteresis: a high bar to switch to coffee (must nearly fill the
+      // Hysteresis: a high bar to enter the showcase (must nearly fill the
       // viewport — a deliberate stop, not a pass-through), a low bar to
-      // switch back (only once it's mostly scrolled away again).
-      if (entry.intersectionRatio > 0.65) commit('coffee', 220);
-      else if (entry.intersectionRatio < 0.2) commit('dark', 220);
+      // leave it (only once it's mostly scrolled away again).
+      if (entry.intersectionRatio > 0.65) commitZone(true, 220);
+      else if (entry.intersectionRatio < 0.2) commitZone(false, 220);
     });
   }, { threshold: [0, 0.2, 0.4, 0.65, 0.8, 1] });
   io.observe(section);
 
-  // A manual pin sticks at the moment you click it, but only for as long as you
-  // stay roughly where you were — scroll a meaningful distance in either
-  // direction and auto-detection resumes. Previously this only cleared at
-  // scrollY < 40, so pinning anywhere mid-page silently disabled the themeflip
-  // section's auto-flip for the rest of the visit.
-  window.addEventListener('scroll', () => {
-    if (manualOverride && Math.abs(window.scrollY - overridePinnedAt) > 150) {
-      manualOverride = false;
-    }
-  }, { passive: true });
-
   pin.addEventListener('click', () => {
-    manualOverride = true;
-    overridePinnedAt = window.scrollY;
-    clearTimeout(pendingTimer);
-    setTheme(root.getAttribute('data-theme') === 'dark' ? 'coffee' : 'dark');
+    baseTheme = opposite(baseTheme);
+    applyTheme();
   });
+
+  applyTheme();
 }
