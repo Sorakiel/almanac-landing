@@ -88,8 +88,16 @@
   color: #1B1000;
 }
 
-.im-body { display: none; flex-direction: column; gap: 18px; }
+.im-body {
+  display: none;
+  flex-direction: column;
+  gap: 18px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .22s ease, transform .22s ease;
+}
 .im-body.active { display: flex; }
+.im-body.active.entered { opacity: 1; transform: translateY(0); }
 
 .im-platform-head { display: flex; align-items: center; gap: 14px; }
 .im-platform-icon {

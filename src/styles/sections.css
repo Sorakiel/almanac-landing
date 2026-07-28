@@ -458,7 +458,7 @@
   content: "+"; font-family: var(--font-mono); font-size: 1.2rem;
   color: var(--muted-2); transition: transform .3s ease;
 }
-.faq-item[open] summary::after { transform: rotate(45deg); color: var(--accent); }
+.faq-item.is-open summary::after { transform: rotate(45deg); color: var(--accent); }
 .faq-item .faq-answer {
   /* grid-rows 0fr->1fr animates to the answer's *actual* height, whatever that is —
      a fixed max-height guess (the previous approach) looks fine for one answer length
@@ -472,7 +472,7 @@
   opacity: 0;
   transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1), opacity .3s ease;
 }
-.faq-item[open] .faq-answer { grid-template-rows: 1fr; opacity: 1; }
+.faq-item.is-open .faq-answer { grid-template-rows: 1fr; opacity: 1; }
 .faq-item .faq-answer > p {
   overflow: hidden;
   min-height: 0;

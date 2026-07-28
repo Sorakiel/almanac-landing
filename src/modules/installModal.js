@@ -8,15 +8,45 @@ function detectPlatform() {
   return 'windows';
 }
 
+const SWITCH_MS = 220; // matches .im-body's opacity/transform transition duration
+
 /** Install modal: OS-detected tab (Android / Windows / macOS / Linux / iOS), open/close via triggers, backdrop, close button, Escape. */
 export function initInstallModal() {
   const modal = document.getElementById('installModal');
   const tabs = modal.querySelectorAll('.im-tab');
   const bodies = modal.querySelectorAll('.im-body');
+  let pendingSwitch = null;
+
+  function activate(body) {
+    body.classList.add('active');
+    // rAF so "active" (display:flex) paints at its resting opacity/transform
+    // before "entered" flips them — otherwise the crossfade never plays.
+    requestAnimationFrame(() => body.classList.add('entered'));
+  }
 
   function setTab(name) {
+    const nextBody = [...bodies].find((b) => b.getAttribute('data-panel') === name);
+    if (!nextBody || nextBody.classList.contains('active')) return;
+
     tabs.forEach((t) => t.classList.toggle('active', t.getAttribute('data-tab') === name));
-    bodies.forEach((b) => b.classList.toggle('active', b.getAttribute('data-panel') === name));
+
+    if (pendingSwitch) {
+      clearTimeout(pendingSwitch);
+      pendingSwitch = null;
+    }
+    const currentBody = [...bodies].find((b) => b !== nextBody && b.classList.contains('active'));
+
+    if (!currentBody) {
+      activate(nextBody);
+      return;
+    }
+
+    currentBody.classList.remove('entered');
+    pendingSwitch = window.setTimeout(() => {
+      currentBody.classList.remove('active');
+      activate(nextBody);
+      pendingSwitch = null;
+    }, SWITCH_MS);
   }
 
   tabs.forEach((t) => t.addEventListener('click', () => setTab(t.getAttribute('data-tab'))));
