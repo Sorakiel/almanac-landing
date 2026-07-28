@@ -6,6 +6,7 @@
   <title>Almanac — личный командный центр для привычек и тренировок</title>
   <meta name="description" content="Almanac — бесплатный life OS для привычек и тренировок. Один экран отвечает, где вы сейчас и куда движетесь. Один тап, оптимистичный UI, две темы, открытый исходный код." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◇</text></svg>" />
+  <link rel="stylesheet" href="/src/styles/index.css" />
 </head>
 <body>
   <div class="preloader" id="preloader" aria-hidden="true">
@@ -35,7 +36,10 @@
       <a href="#support">Поддержать</a>
     </div>
     <div class="nav-actions">
-      <button class="theme-pin" id="themePin" title="Закрепить тему вручную" aria-label="Переключить тему вручную">◐</button>
+      <button class="theme-pin" id="themePin" title="Закрепить тему вручную" aria-label="Переключить тему вручную">
+        <svg class="tp-icon tp-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+        <svg class="tp-icon tp-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+      </button>
       <a class="btn btn-primary magnetic" href="#" data-open-install>Установить</a>
     </div>
   </nav>
@@ -62,17 +66,12 @@
             <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
             <span class="demo-title">СЕГОДНЯ</span>
           </div>
-          <div class="demo-ring">
-            <svg viewBox="0 0 120 120">
-              <defs>
-                <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#EF8857" /><stop offset="100%" stop-color="#C2562A" />
-                </linearGradient>
-              </defs>
-              <circle class="ring-bg" cx="60" cy="60" r="52" />
-              <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="52" />
-            </svg>
-            <div class="ring-label"><span id="ringPct">0</span><span>%</span></div>
+          <div class="demo-ring tick-ring" id="demoRing">
+            <svg id="demoRingSvg"></svg>
+            <div class="ring-label">
+              <div class="ring-pct-row"><span id="ringPct">0</span><span class="ring-unit">%</span></div>
+              <span class="ring-frac" id="ringFrac">2/4</span>
+            </div>
           </div>
           <ul class="demo-habits" id="demoHabits">
             <li class="demo-habit" data-done="true"><span class="habit-box"><svg viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" /></svg></span><span>Растяжка</span></li>
@@ -81,7 +80,7 @@
             <li class="demo-habit" data-done="false"><span class="habit-box"><svg viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" /></svg></span><span>Без сахара</span></li>
           </ul>
           <div class="demo-streak">
-            <span class="mono-label">СТРИК</span><span class="streak-num" id="streakNum">0</span><span class="mono-label">дней</span>
+            <span class="mono-label">СТРИК</span><span class="streak-num" id="streakNum">12</span><span class="mono-label">дней</span>
           </div>
         </div>
       </div>
@@ -106,8 +105,8 @@
       <div class="fan-stage reveal" id="fanStage">
         <div class="fan-card" style="--i:0">
           <div class="fc-head"><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-label">ДАШБОРД</span></div>
-          <div class="fc-ring">
-            <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34" /><circle class="fg" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="75" transform="rotate(-90 40 40)" /></svg>
+          <div class="fc-ring tick-ring" id="fcRingDashboard" style="--tick-track:#33333a;--tick-fill:#EF8857">
+            <svg id="fcRingDashboardSvg"></svg>
             <div class="fc-ring-label">65%</div>
           </div>
           <p class="fc-quote">«Дисциплина — выбор между тем, что хочешь сейчас, и тем, что хочешь больше всего.»</p>
@@ -128,8 +127,8 @@
         </div>
         <div class="fan-card fc-coffee" style="--i:3">
           <div class="fc-head"><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-dot"></span><span class="fc-label">COFFEE</span></div>
-          <div class="fc-ring">
-            <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34" style="stroke:#D9C9AC" /><circle class="fg" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="75" transform="rotate(-90 40 40)" /></svg>
+          <div class="fc-ring tick-ring" id="fcRingCoffee" style="--tick-track:#D9C9AC;--tick-fill:#EF8857">
+            <svg id="fcRingCoffeeSvg"></svg>
             <div class="fc-ring-label">65%</div>
           </div>
           <p class="fc-note">ТОТ ЖЕ ЭКРАН, ДРУГОЕ НАСТРОЕНИЕ</p>
@@ -145,14 +144,25 @@
 
       <div class="support-grid reveal">
         <div class="mini-card">
+          <h4>Мгновенный отклик</h4>
+          <p>Отмечаете — интерфейс обновляется сразу, синхронизация идёт в фоне.</p>
+          <div class="w-ticker" id="wTicker"></div>
+        </div>
+        <div class="mini-card">
           <h4>Мягкие правила стрика</h4>
-          <p>Блочный прогресс-бар вместо цепочки, которая ломается от одного пропуска.</p>
-          <div class="w-blockbar" id="wBlockbar"></div>
+          <p>Прогресс-бар вместо цепочки, которая ломается от одного пропуска.</p>
+          <div class="glyph-bar" id="wBlockbar" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="79">
+            <span class="gb-track">░░░░░░░░░░░░░░</span>
+            <span class="gb-fill" id="wBlockbarFill">▓▓▓▓▓▓▓▓▓▓▓▓▓▓</span>
+          </div>
         </div>
         <div class="mini-card">
           <h4>Общий доступ, приватные данные</h4>
           <p>Row-Level Security на уровне Postgres: каждый видит только своё.</p>
-          <div class="w-avatars"><span class="w-avatar">А</span><span class="w-avatar">М</span><span class="w-avatar">+</span></div>
+          <div class="w-avatars">
+            <svg class="connector" preserveAspectRatio="none"><line x1="0" y1="1" x2="100%" y2="1" /></svg>
+            <span class="w-avatar">А</span><span class="w-avatar">М</span><span class="w-avatar">+</span>
+          </div>
         </div>
         <div class="mini-card">
           <h4>Модули по мере роста</h4>
@@ -166,12 +176,10 @@
       <div class="marquee-track" id="marqueeTrack"></div>
     </div>
 
-    <div id="themeSentinelEnter"></div>
     <section id="themeflip">
       <p class="flip-big reveal">Тёмная. Или <em>coffee</em>.<br />Страница уже переключилась.</p>
       <p class="flip-sub reveal">// ПРОКРУТИТЕ НАЗАД, ЧТОБЫ ВЕРНУТЬ DARK</p>
     </section>
-    <div id="themeSentinelExit"></div>
 
     <section id="how">
       <div class="section-head reveal">
@@ -214,8 +222,13 @@
           <p>Поддержать разработку можно добровольно — это помогает быстрее доводить фичи и оплачивать инфраструктуру (базу данных, домен, сборки). Необязательно, но приятно.</p>
         </div>
         <div class="support-actions">
-          <a class="btn btn-primary btn-lg magnetic" href="#" id="boostyLink">Поддержать на Boosty</a>
-          <span class="support-note">Ссылка появится здесь после запуска страницы поддержки.</span>
+          <div class="support-receipt">
+            <div class="sr-row"><span>БАЗА ДАННЫХ</span><b>Supabase</b></div>
+            <div class="sr-row"><span>ДОМЕН И ХОСТИНГ</span><b>Vercel</b></div>
+            <div class="sr-row"><span>СБОРКИ</span><b>GitHub Actions</b></div>
+          </div>
+          <a class="btn btn-primary btn-lg magnetic" href="https://boosty.to/sorakield" target="_blank" rel="noopener" id="boostyLink">Поддержать на Boosty</a>
+          <span class="support-note">Любая сумма — от чашки кофе до часов разработки.</span>
         </div>
       </div>
     </section>
@@ -262,10 +275,25 @@
       <button class="im-close" data-close-install aria-label="Закрыть">×</button>
       <h3 id="imTitle">Установить Almanac</h3>
       <div class="im-tabs">
-        <button class="im-tab" data-tab="android">Android</button>
-        <button class="im-tab" data-tab="other">iOS / Десктоп</button>
+        <button class="im-tab" data-tab="android">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 7v7M9 11l3 3 3-3" /></svg>
+          <span>Android</span>
+        </button>
+        <button class="im-tab" data-tab="ios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 12V6M9.5 8.5 12 6l2.5 2.5" /><path d="M9 15h6" /></svg>
+          <span>iOS</span>
+        </button>
+        <button class="im-tab" data-tab="desktop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
+          <span>Десктоп</span>
+        </button>
       </div>
+
       <div class="im-body" data-panel="android">
+        <div class="im-platform-head">
+          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 7v7M9 11l3 3 3-3" /></svg></span>
+          <div><h4>Android</h4><p>Прямая установка apk, без Google Play</p></div>
+        </div>
         <a class="btn btn-primary btn-lg magnetic" href="https://github.com/Sorakiel/almanac/releases/latest" target="_blank" rel="noopener">Скачать APK →</a>
         <ol class="im-steps">
           <li><b>01</b>Откройте ссылку на телефоне — попадёте на страницу последнего релиза GitHub.</li>
@@ -273,12 +301,30 @@
           <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
         </ol>
       </div>
-      <div class="im-body" data-panel="other">
+
+      <div class="im-body" data-panel="ios">
+        <div class="im-platform-head">
+          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M12 12V6M9.5 8.5 12 6l2.5 2.5" /><path d="M9 15h6" /></svg></span>
+          <div><h4>iOS / iPadOS</h4><p>Через Safari — как PWA, на экран «Домой»</p></div>
+        </div>
         <a class="btn btn-primary btn-lg magnetic" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">Открыть Almanac →</a>
         <ol class="im-steps">
-          <li><b>iOS</b>Safari → кнопка «Поделиться» → «На экран «Домой»».</li>
-          <li><b>Desktop</b>Chrome/Edge → значок установки в адресной строке → «Установить».</li>
-          <li><b>Далее</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
+          <li><b>01</b>Откройте ссылку выше в Safari (обязательно в Safari, не в Chrome).</li>
+          <li><b>02</b>Кнопка «Поделиться» → «На экран «Домой»».</li>
+          <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
+        </ol>
+      </div>
+
+      <div class="im-body" data-panel="desktop">
+        <div class="im-platform-head">
+          <span class="im-platform-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg></span>
+          <div><h4>Windows, macOS, Linux</h4><p>Как PWA — в любом Chromium-браузере</p></div>
+        </div>
+        <a class="btn btn-primary btn-lg magnetic" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">Открыть Almanac →</a>
+        <ol class="im-steps">
+          <li><b>01</b>Откройте ссылку выше в Chrome, Edge или другом Chromium-браузере.</li>
+          <li><b>02</b>Значок установки в адресной строке → «Установить Almanac».</li>
+          <li><b>03</b>Зарегистрируйтесь прямо в приложении — почта и пароль, бесплатно.</li>
         </ol>
       </div>
     </div>

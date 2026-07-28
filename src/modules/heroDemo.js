@@ -1,19 +1,24 @@
-const CIRC = 326.7;
-const STREAK_BASE = 11;
+import { createTickRing } from './ring.js';
 
-/** Wires the interactive habit checklist in the hero card to the progress ring and streak count. */
+/**
+ * Wires the interactive habit checklist in the hero card to the progress ring.
+ * The streak number is deliberately NOT touched here — a streak counts
+ * consecutive days, not today's checkbox state, so tying it to clicks was
+ * both a bug and a category error. It stays a fixed demo value.
+ */
 export function initHeroDemo() {
   const habits = document.querySelectorAll('#demoHabits .demo-habit');
-  const ringFill = document.getElementById('ringFill');
+  const svg = document.getElementById('demoRingSvg');
   const ringPct = document.getElementById('ringPct');
-  const streakNum = document.getElementById('streakNum');
+  const ringFrac = document.getElementById('ringFrac');
+  const setProgress = createTickRing(svg);
 
   function updateRing() {
     const done = document.querySelectorAll('#demoHabits .demo-habit[data-done="true"]').length;
-    const pct = Math.round((done / habits.length) * 100);
-    ringFill.style.strokeDashoffset = (CIRC - (CIRC * pct) / 100).toFixed(1);
-    ringPct.textContent = pct;
-    streakNum.textContent = STREAK_BASE + done;
+    const total = habits.length;
+    setProgress(done / total);
+    ringPct.textContent = Math.round((done / total) * 100);
+    ringFrac.textContent = `${done}/${total}`;
   }
 
   habits.forEach((li) => {

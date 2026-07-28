@@ -1,3 +1,5 @@
+import { createTickRing } from './ring.js';
+
 /** Fans the stacked screen mockups out into an arc once the section scrolls into view. */
 function initFanStage() {
   const fanStage = document.getElementById('fanStage');
@@ -25,17 +27,22 @@ function buildHeatmap() {
   }
 }
 
-/** Builds the "soft streak rules" block-bar widget and fills it in once visible. */
-function initBlockBar() {
-  const bar = document.getElementById('wBlockbar');
-  const filled = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0];
-  filled.forEach(() => bar.appendChild(document.createElement('span')));
+/** The two static ring mockups (dashboard + coffee screens) — always show a fixed 65%, no interaction. */
+function initFanRings() {
+  const dashboard = createTickRing(document.getElementById('fcRingDashboardSvg'));
+  const coffee = createTickRing(document.getElementById('fcRingCoffeeSvg'));
+  dashboard(0.65);
+  coffee(0.65);
+}
 
+/** Reveals the "soft streak rules" glyph progress bar once its card is visible. */
+function initBlockBar() {
+  const fill = document.getElementById('wBlockbarFill');
+  const bar = document.getElementById('wBlockbar');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const spans = bar.querySelectorAll('span');
-        filled.forEach((v, i) => { if (v) spans[i].classList.add('filled'); });
+        fill.style.width = '79%';
         io.unobserve(entry.target);
       }
     });
@@ -46,5 +53,6 @@ function initBlockBar() {
 export function initProductSection() {
   initFanStage();
   buildHeatmap();
+  initFanRings();
   initBlockBar();
 }

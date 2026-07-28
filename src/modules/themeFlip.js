@@ -1,47 +1,49 @@
 /**
  * Drives the page's dark/coffee theme two ways:
- *  - automatically, based on scroll position crossing the #themeflip section
+ *  - automatically, once the #themeflip section is *substantially* in view
+ *    (not just brushed past while scrolling through to the next section) —
+ *    debounced so a fast scroll-by doesn't flicker the whole page
  *  - manually, via the nav pin button, which overrides auto-detection until
- *    the user scrolls back near the top (a real UX escape hatch, not a dead end)
+ *    the user scrolls back near the top
  */
 export function initThemeFlip() {
   const root = document.documentElement;
-  const enterEl = document.getElementById('themeSentinelEnter');
-  const exitEl = document.getElementById('themeSentinelExit');
+  const section = document.getElementById('themeflip');
   const pin = document.getElementById('themePin');
 
   let manualOverride = false;
+  let pendingTimer = null;
 
   function setTheme(value) {
     root.setAttribute('data-theme', value);
   }
 
-  function autoThemeCheck() {
-    // Check the reset condition *before* the early return — otherwise a manual
-    // override could never clear once scrolled back to the top.
-    if (window.scrollY < 40) manualOverride = false;
-    if (manualOverride) return;
-
-    const mid = window.innerHeight / 2;
-    const enterTop = enterEl.getBoundingClientRect().top;
-    const exitTop = exitEl.getBoundingClientRect().top;
-    setTheme(enterTop < mid && exitTop > mid ? 'coffee' : 'dark');
+  function commit(value, delay) {
+    clearTimeout(pendingTimer);
+    pendingTimer = setTimeout(() => {
+      if (!manualOverride) setTheme(value);
+    }, delay);
   }
 
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      autoThemeCheck();
-      ticking = false;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (manualOverride) return;
+      // Hysteresis: a high bar to switch to coffee (must nearly fill the
+      // viewport — a deliberate stop, not a pass-through), a low bar to
+      // switch back (only once it's mostly scrolled away again).
+      if (entry.intersectionRatio > 0.65) commit('coffee', 220);
+      else if (entry.intersectionRatio < 0.2) commit('dark', 220);
     });
+  }, { threshold: [0, 0.2, 0.4, 0.65, 0.8, 1] });
+  io.observe(section);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < 40) manualOverride = false;
   }, { passive: true });
 
   pin.addEventListener('click', () => {
     manualOverride = true;
+    clearTimeout(pendingTimer);
     setTheme(root.getAttribute('data-theme') === 'dark' ? 'coffee' : 'dark');
   });
-
-  autoThemeCheck();
 }

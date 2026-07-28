@@ -1,8 +1,5 @@
-import './styles/tokens.css';
-import './styles/base.css';
-import './styles/components.css';
-import './styles/sections.css';
-import './styles/modal.css';
+// Styles are linked directly from index.html's <head>, not imported here —
+// see src/styles/index.css for why (avoids a flash of unstyled content).
 
 import { initPreloader } from './modules/preloader.js';
 import { initCursor } from './modules/cursor.js';
@@ -16,6 +13,8 @@ import { initProductSection } from './modules/productSection.js';
 import { initMarquee } from './modules/marquee.js';
 import { initThemeFlip } from './modules/themeFlip.js';
 import { initInstallModal } from './modules/installModal.js';
+import { initFaq } from './modules/faq.js';
+import { initTicker } from './modules/ticker.js';
 
 // Effects that don't depend on the preloader can start immediately.
 initCursor();
@@ -27,6 +26,8 @@ initProductSection();
 initMarquee();
 initThemeFlip();
 initInstallModal();
+initFaq();
+initTicker();
 
 const scatterGrid = buildScatterGrid();
 const updateRing = initHeroDemo();
@@ -36,10 +37,4 @@ const updateRing = initHeroDemo();
 initPreloader(() => {
   assembleScatterGrid(scatterGrid);
   updateRing();
-});
-
-// The Boosty link isn't wired up yet — swap this for a real href once it exists.
-document.getElementById('boostyLink').addEventListener('click', (e) => {
-  e.preventDefault();
-  alert('Ссылка на Boosty ещё не подключена — добавьте href в index.html.');
 });

@@ -1,4 +1,11 @@
-/** Install modal: OS-detected tab, open/close via triggers, backdrop, close button, and Escape. */
+function detectPlatform() {
+  const ua = navigator.userAgent;
+  if (/android/i.test(ua)) return 'android';
+  if (/iphone|ipad|ipod/i.test(ua)) return 'ios';
+  return 'desktop';
+}
+
+/** Install modal: OS-detected tab (Android / iOS / Desktop), open/close via triggers, backdrop, close button, Escape. */
 export function initInstallModal() {
   const modal = document.getElementById('installModal');
   const tabs = modal.querySelectorAll('.im-tab');
@@ -12,8 +19,7 @@ export function initInstallModal() {
   tabs.forEach((t) => t.addEventListener('click', () => setTab(t.getAttribute('data-tab'))));
 
   function open() {
-    const isAndroid = /android/i.test(navigator.userAgent);
-    setTab(isAndroid ? 'android' : 'other');
+    setTab(detectPlatform());
     modal.classList.add('open');
   }
 

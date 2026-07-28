@@ -1,0 +1,7 @@
+/* Linked directly from index.html <head> (not imported from JS) so styles are
+   present on first paint — a JS-injected stylesheet would flash unstyled HTML. */
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './sections.css';
+@import './modal.css';

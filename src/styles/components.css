@@ -148,19 +148,22 @@
   gap: 12px;
 }
 .theme-pin {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: .6rem;
-  color: var(--muted-2);
-  transition: border-color .25s ease, color .25s ease;
+  color: var(--muted);
+  transition: border-color .25s ease, color .25s ease, transform .25s ease;
 }
-.theme-pin:hover { border-color: var(--accent); color: var(--accent); }
+.theme-pin:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.06); }
+.tp-icon { width: 19px; height: 19px; }
+[data-theme="dark"] .tp-sun,
+[data-theme="coffee"] .tp-moon {
+  display: none;
+}
 
 /* ---------- buttons ---------- */
 .btn {
@@ -188,6 +191,54 @@
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 .btn-lg { padding: 15px 26px; font-size: 1rem; }
 .magnetic { will-change: transform; }
+
+/* ---------- tick ring (mirrors the app's CompletionDonut: 36 radial ticks, not a solid arc) ----------
+   Track/fill read from local custom properties so mockup cards that deliberately stay one fixed
+   theme (e.g. the "always dark" / "always coffee" screens in the product fan-stack) can override
+   them inline, independent of the page's own current theme. */
+.tick-ring {
+  --tick-track: color-mix(in srgb, var(--border) 40%, transparent);
+  --tick-fill: var(--accent);
+}
+.tick-ring line {
+  stroke: var(--tick-track);
+  stroke-width: 5;
+  stroke-linecap: butt;
+  transition: stroke .3s ease;
+}
+.tick-ring line.filled {
+  stroke: var(--tick-fill);
+}
+
+/* ---------- glyph progress bar (mirrors the app's ▓/░ ProgressBlocks) ---------- */
+.glyph-bar {
+  position: relative;
+  font-family: var(--font-mono);
+  letter-spacing: .04em;
+  white-space: nowrap;
+  line-height: 1;
+}
+.gb-track {
+  color: color-mix(in srgb, var(--muted-2) 40%, transparent);
+}
+.gb-fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  width: 0;
+  color: var(--accent);
+  transition: width .7s ease-out;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 70%, #fff 85%, var(--accent) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gbShimmer 3.2s ease-in-out infinite;
+}
+@keyframes gbShimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: -220% 0; }
+}
 
 /* ---------- reveal ---------- */
 .reveal {
