@@ -37,10 +37,10 @@ export function initThemeFlip() {
       // Hysteresis: a high bar to enter the showcase (must nearly fill the
       // viewport — a deliberate stop, not a pass-through), a low bar to
       // leave it (only once it's mostly scrolled away again).
-      if (entry.intersectionRatio > 0.65) commitZone(true, 220);
+      if (entry.intersectionRatio > 0.85) commitZone(true, 220);
       else if (entry.intersectionRatio < 0.2) commitZone(false, 220);
     });
-  }, { threshold: [0, 0.2, 0.4, 0.65, 0.8, 1] });
+  }, { threshold: [0, 0.2, 0.4, 0.65, 0.85, 1] });
   io.observe(section);
 
   pin.addEventListener('click', () => {
