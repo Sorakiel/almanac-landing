@@ -1,42 +1,48 @@
 /**
- * <details> animates open smoothly via CSS (the .faq-answer grid-template-rows
- * trick), but removing the native `open` attribute collapses the content
- * instantly in every browser — there's no window left for a transition to run,
- * because `open` removal is what the browser uses to decide the content isn't
- * rendered anymore. So the visual state is driven by a `.is-open` class instead:
- * closing removes the class first (the transition plays while `open` is still
- * present, so nothing collapses natively), and `open` itself is only cleared
- * once that transition has actually finished.
+ * Plain button + div accordion — deliberately not <details>/<summary>. That
+ * native element toggles its own content visibility as part of its `open`
+ * attribute changing, outside CSS's control, which is exactly what made every
+ * previous attempt at a smooth open/close fight the browser instead of the
+ * transition just working. Here the answer stays in normal flow the whole
+ * time; JS measures its real pixel height once per click and animates
+ * max-height to that exact value, so there's nothing left to guess or race.
  */
-const CLOSE_MS = 260; // matches .faq-answer's grid-template-rows transition duration
-
-function closeItem(details) {
-  if (!details.classList.contains('is-open')) return;
-  details.classList.remove('is-open');
-  window.setTimeout(() => details.removeAttribute('open'), CLOSE_MS);
+function open(item, btn, answer) {
+  item.classList.add('is-open');
+  btn.setAttribute('aria-expanded', 'true');
+  answer.style.maxHeight = `${answer.scrollHeight}px`;
 }
 
-function openItem(details) {
-  details.setAttribute('open', '');
-  // rAF so the browser registers the closed starting state before the class
-  // flips — flipping in the same tick can start the transition from its end state.
-  requestAnimationFrame(() => details.classList.add('is-open'));
+function close(item, btn, answer) {
+  // Commit a concrete pixel value first (in case it's still "none" from init)
+  // and force a style flush before collapsing — two writes to the same
+  // property in one tick can otherwise get collapsed into a single recalc,
+  // skipping the "before" frame the transition needs to animate from.
+  answer.style.maxHeight = `${answer.scrollHeight}px`;
+  void answer.offsetHeight;
+  item.classList.remove('is-open');
+  btn.setAttribute('aria-expanded', 'false');
+  answer.style.maxHeight = '0px';
 }
 
 export function initFaq() {
-  document.querySelectorAll('.faq-item').forEach((details) => {
-    if (details.hasAttribute('open')) details.classList.add('is-open');
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    const btn = item.querySelector('.faq-q');
+    const answer = item.querySelector('.faq-answer');
 
-    const summary = details.querySelector('summary');
-    summary.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (details.classList.contains('is-open')) closeItem(details);
-      else openItem(details);
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) close(item, btn, answer);
+      else open(item, btn, answer);
     });
-  });
 
-  // Clicking the answer text itself also closes it (matches the old behavior).
-  document.querySelectorAll('.faq-item p').forEach((answer) => {
-    answer.addEventListener('click', () => closeItem(answer.closest('.faq-item')));
+    // Clicking the answer text itself also closes it (matches prior behavior).
+    answer.addEventListener('click', () => close(item, btn, answer));
+
+    // The default-open item renders open and unconstrained from the start —
+    // no measured animation on load, and no risk of locking in a height
+    // measured before web fonts have swapped in.
+    if (item.classList.contains('is-open')) {
+      answer.style.maxHeight = 'none';
+    }
   });
 }

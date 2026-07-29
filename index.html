@@ -173,8 +173,8 @@
         </div>
         <div class="mini-card">
           <h4>Модули по мере роста</h4>
-          <p>Привычки и тренировки — первые. Дальше: финансы, чтение, сон.</p>
-          <div class="w-modules"><span class="active">Привычки</span><span class="active">Тренировки</span><span>Финансы</span><span>Чтение</span><span>Сон</span></div>
+          <p>Привычки, тренировки и чтение уже здесь. Дальше: финансы и сон.</p>
+          <div class="w-modules"><span class="active">Привычки</span><span class="active">Тренировки</span><span class="active">Чтение</span><span>Финансы</span><span>Сон</span></div>
         </div>
       </div>
     </section>
@@ -255,22 +255,22 @@
         <h2>Частые вопросы</h2>
       </div>
       <div class="reveal">
-        <details class="faq-item" open>
-          <summary>Это бесплатно?</summary>
-          <div class="faq-answer"><p>Да, полностью. Поддержать разработку можно добровольно — через Boosty, в разделе выше, но это ни на что не влияет.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Мои данные видят другие пользователи?</summary>
-          <div class="faq-answer"><p>Нет. Row-Level Security на уровне Postgres: каждый видит только свои привычки, тренировки и записи — это гарантия базы данных, а не только интерфейса.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>На каких устройствах это работает?</summary>
-          <div class="faq-answer"><p>Android (apk), Windows, macOS и Linux — нативные сборки на Tauri. Плюс сам сайт работает в любом браузере.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Исходный код открыт?</summary>
-          <div class="faq-answer"><p>Да, репозиторий на GitHub — ссылка в разделе установки выше.</p></div>
-        </details>
+        <div class="faq-item is-open">
+          <button class="faq-q" type="button" aria-expanded="true" aria-controls="faq-a-1">Это бесплатно?</button>
+          <div class="faq-answer" id="faq-a-1"><p>Да, полностью. Поддержать разработку можно добровольно — через Boosty, в разделе выше, но это ни на что не влияет.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-2">Мои данные видят другие пользователи?</button>
+          <div class="faq-answer" id="faq-a-2"><p>Нет. Row-Level Security на уровне Postgres: каждый видит только свои привычки, тренировки и записи — это гарантия базы данных, а не только интерфейса.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-3">На каких устройствах это работает?</button>
+          <div class="faq-answer" id="faq-a-3"><p>Android (apk), Windows, macOS и Linux — нативные сборки на Tauri. Плюс сам сайт работает в любом браузере.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-4">Исходный код открыт?</button>
+          <div class="faq-answer" id="faq-a-4"><p>Да, репозиторий на GitHub — ссылка в разделе установки выше.</p></div>
+        </div>
       </div>
     </section>
 
