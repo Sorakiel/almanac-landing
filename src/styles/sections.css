@@ -473,7 +473,7 @@
   display: grid !important;
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+  transition: grid-template-rows .26s cubic-bezier(.16,1,.3,1), opacity .26s ease;
 }
 .faq-item.is-open .faq-answer { grid-template-rows: 1fr; opacity: 1; }
 .faq-item .faq-answer > p {

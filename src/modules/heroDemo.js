@@ -1,4 +1,4 @@
-import { createTickRing } from './ring.js';
+import { createTickRing, createCountUp } from './ring.js';
 
 /**
  * Wires the interactive habit checklist in the hero card to the progress ring.
@@ -12,12 +12,13 @@ export function initHeroDemo() {
   const ringPct = document.getElementById('ringPct');
   const ringFrac = document.getElementById('ringFrac');
   const setProgress = createTickRing(svg);
+  const setPct = createCountUp(ringPct);
 
   function updateRing() {
     const done = document.querySelectorAll('#demoHabits .demo-habit[data-done="true"]').length;
     const total = habits.length;
     setProgress(done / total);
-    ringPct.textContent = Math.round((done / total) * 100);
+    setPct(Math.round((done / total) * 100));
     ringFrac.textContent = `${done}/${total}`;
   }
 

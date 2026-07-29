@@ -198,7 +198,10 @@
    theme (e.g. the "always dark" / "always coffee" screens in the product fan-stack) can override
    them inline, independent of the page's own current theme. */
 .tick-ring {
-  --tick-track: color-mix(in srgb, var(--border) 40%, transparent);
+  /* Matches the app's CompletionDonut exactly: unfilled ticks at 16% border
+     opacity, not a guess — a higher opacity here reads as a visibly different,
+     "busier" ring even before anything animates. */
+  --tick-track: color-mix(in srgb, var(--border) 16%, transparent);
   --tick-fill: var(--accent);
 }
 .tick-ring line {

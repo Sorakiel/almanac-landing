@@ -8,7 +8,7 @@
  * present, so nothing collapses natively), and `open` itself is only cleared
  * once that transition has actually finished.
  */
-const CLOSE_MS = 400; // matches .faq-answer's grid-template-rows transition duration
+const CLOSE_MS = 260; // matches .faq-answer's grid-template-rows transition duration
 
 function closeItem(details) {
   if (!details.classList.contains('is-open')) return;

@@ -1,3 +1,5 @@
+import { reduced } from './env.js';
+
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 // Mirrors the app's CompletionDonut: a ring of 36 discrete radial ticks
@@ -37,5 +39,45 @@ export function createTickRing(svgEl) {
     ticks.forEach((tick, i) => {
       tick.classList.toggle('filled', i < target);
     });
+  };
+}
+
+/**
+ * Tweens the % readout next to a ring up to `target`, easing out over
+ * `duration` ms — mirrors the app's useCountUp hook exactly (same easeOutCubic
+ * curve, same 600ms default). The ring's ticks sweep in via their own CSS
+ * transition; without this the number used to just snap while the ring
+ * visibly animated, which read as two disconnected pieces instead of one
+ * gauge.
+ */
+export function createCountUp(el, duration = 600) {
+  let from = 0;
+  let rafId = null;
+
+  return function setValue(target) {
+    if (rafId !== null) cancelAnimationFrame(rafId);
+
+    if (reduced || from === target) {
+      from = target;
+      el.textContent = target;
+      return;
+    }
+
+    const start = from;
+    let startTs = null;
+
+    function step(ts) {
+      if (startTs === null) startTs = ts;
+      const t = Math.min((ts - startTs) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(start + (target - start) * eased);
+      if (t < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        from = target;
+        rafId = null;
+      }
+    }
+    rafId = requestAnimationFrame(step);
   };
 }

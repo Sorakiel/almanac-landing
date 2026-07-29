@@ -88,16 +88,31 @@
   color: #1B1000;
 }
 
+/* Panels crossfade in place rather than sliding — the stack's own height
+   morphs between panel sizes so switching between short/long content doesn't
+   jump, and the outgoing panel is pulled out of flow (.leaving) so it can
+   fade out directly under the incoming one instead of the two ever being
+   sequenced (fade-out-THEN-fade-in reads as a jarring double-step, not one
+   smooth transition). See installModal.js for the class choreography. */
+.im-body-stack {
+  position: relative;
+  transition: height .2s ease;
+}
 .im-body {
   display: none;
   flex-direction: column;
   gap: 18px;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .22s ease, transform .22s ease;
+  transition: opacity .2s ease;
 }
 .im-body.active { display: flex; }
-.im-body.active.entered { opacity: 1; transform: translateY(0); }
+.im-body.active.entered { opacity: 1; }
+.im-body.leaving {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
 
 .im-platform-head { display: flex; align-items: center; gap: 14px; }
 .im-platform-icon {
