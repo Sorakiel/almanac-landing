@@ -24,20 +24,27 @@ Output goes to `dist/` — deploy it as a static site (Vercel: framework preset 
 
 ## Structure
 
+The page is a sequence of scroll scenes (spec: `almanac-redesign-handoff/LANDING.md`).
+
 ```
-index.html            all markup (single page)
+index.html            all markup: icon sprite, nav, one <section> per scene
 src/
-  main.js             entry point — imports styles, wires up every module
-  modules/             one file per interactive behavior (preloader, cursor,
-                        theme flip, install modal, etc.) — see each file's
-                        top comment for what it does
+  main.js             entry point — mounts logos, theme, then each scene's init
+  modules/
+    scroll.js           the one rAF loop; scenes register({ el, measure, frame })
+    logo.js             the app icon as a component (plain / intro / final)
+    theme.js            dark ↔ coffee with a circular wipe, remembered choice
+    today.js            the app's Today screen and habit rows, shared by scenes
+    fx.js               odometer, ripple, burst, vibrate, plural, count-up…
+    reveal.js           fade-up for [data-rv] blocks entering from below
+    faq.js, platformDownloads.js, env.js, installModal.js (old, until install v2)
   styles/
-    tokens.css          design tokens (colors, fonts, radii) + @font-face
-    base.css            reset, typography, reduced-motion overrides
-    components.css      nav, buttons, preloader, cursor, footer
-    sections.css        hero, manifesto, product, marquee, how-it-works, etc.
-    modal.css           install modal
-  fonts/                self-hosted Inter & JetBrains Mono subsets
+    tokens.css          colors for both themes, fonts (@font-face), easing
+    base.css            reset, typography, section scaffolding, reduced motion
+    components.css      glass, buttons, nav, logo, phone + habit rows, seal, capsule
+    scenes.css          one block per scene
+    modal.css           old install modal (removed with install v2)
+  fonts/                self-hosted Onest & JetBrains Mono (Latin + Cyrillic)
 ```
 
 ## Editing content

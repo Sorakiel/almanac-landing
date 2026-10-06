@@ -5,6 +5,7 @@
 .im-overlay button{border:0;background:none;cursor:pointer}
 .im-overlay .btn{align-self:flex-start}
 .im-steps{margin:0;padding:0;list-style:none}
+.im-overlay h3,.im-overlay h4{margin:0}
 
 .im-overlay {
   position: fixed;
