@@ -83,7 +83,49 @@
     <p id="manifesto">Almanac - не стартап и не очередной трекер для галочки. Это система, которую я строю для себя и близких людей, чтобы каждый день видеть одно и то же: *где я сейчас* и *куда двигаюсь.* Бесплатно, без рекламы, без тёмных паттернов.</p>
     <small><span class="logo" data-logo="plain"></span>Автор Almanac</small>
   </section>
-  <!-- PR 4 · Орион --><section class="day" id="day"></section>
+  <section class="day" id="day">
+    <div class="day-stage">
+      <div class="day-sky" id="daySky" aria-hidden="true"></div>
+      <div class="day-head">
+        <h2>Один день с Almanac.</h2>
+        <div class="timeline" aria-hidden="true"><div class="line"></div><div class="fill" id="tlFill"></div><div class="sun" id="tlSun"></div></div>
+      </div>
+      <div class="day-track" id="dayTrack">
+        <article class="panel" style="--tint:var(--accent)">
+          <div class="panel-copy"><div class="t"><small>Утро</small>07:40</div><h3>Открыли, отметили, пошли дальше.</h3><p>Привычки разложены по времени дня. Один тап, и серия растёт прямо под пальцем. Пропустили осознанно - так и отметьте, серия не сгорит.</p></div>
+          <div class="demo" style="--tint:var(--accent)"><div style="font:600 18px var(--ui);justify-self:start">Утро</div><div class="p-group" id="morning"></div><div style="font:400 14px var(--ui);color:var(--ink2);justify-self:start">Сегодня <b class="num" id="mCnt" style="color:var(--ink)">1</b> из 3</div></div>
+        </article>
+        <article class="panel dim" style="--tint:var(--accent)">
+          <div class="panel-copy"><div class="t"><small>День</small>13:10</div><h3>Двадцать пять минут без телефона.</h3><p>Внутри таймера песочные часы: время копится на глазах. Длительность любая, от пяти минут до трёх часов. Привяжите к привычке или книге.</p></div>
+          <div class="demo" style="--tint:var(--accent)">
+            <div class="dial" id="dial"><canvas id="sand" aria-hidden="true"></canvas><svg viewBox="0 0 240 240" aria-hidden="true" id="dialSvg"></svg><div class="c"><b class="num" id="fcTime">25:00</b><small>Английский</small></div></div>
+            <div class="durs" id="durs"></div>
+          </div>
+        </article>
+        <article class="panel dim" style="--tint:var(--teal)">
+          <div class="panel-copy"><div class="t"><small>Зал</small>18:30</div><h3>Один подход за раз.</h3><p>Крупно только то, что делаете сейчас. Нажали «Подход сделан» - круг отдыха начинает вытекать, как вода. Рекорды подсвечиваются сами.</p></div>
+          <div class="demo" style="--tint:var(--teal)"><div class="track" id="wkTrack"></div><div class="stage" id="wkStage" style="position:relative;display:grid;justify-items:center;gap:12px;width:100%"></div></div>
+        </article>
+        <article class="panel dim" style="--tint:var(--amber)">
+          <div class="panel-copy"><div class="t"><small>Книга</small>21:00</div><h3>Пятнадцать страниц перед сном.</h3><p>Одна кнопка на дневную цель и честный прогноз, когда дочитаете. Заметки привязаны к страницам.</p></div>
+          <div class="demo" style="--tint:var(--amber)">
+            <div class="book"><div class="cover"><b>Атомные привычки</b><small>Джеймс Клир</small></div><div class="book-info"><b>Атомные привычки</b><div class="bar"><i id="rdBar"></i></div><div class="meta"><span class="num" id="rdPages">212</span> из 320 стр · <span id="rdToday">0</span>/15 сегодня</div></div></div>
+            <div class="r-btns"><button class="r-plus" type="button" id="rdPlus">+15 стр</button><button class="r-focus" type="button" id="rdFocus">Читать 25 мин</button></div>
+            <p class="forecast" id="rdForecast"></p>
+          </div>
+        </article>
+        <article class="panel dim" style="--tint:var(--violet)">
+          <div class="panel-copy"><div class="t"><small>Вечер</small>23:00</div><h3>Как прошёл день?</h3><p>Лицо дня, батарейка энергии, строчка о главном. Сохраняется само. Через месяц видно, что заряжает, а что выжимает.</p></div>
+          <div class="demo" style="--tint:var(--violet)" id="eveDemo">
+            <div class="moods" id="moods"></div>
+            <div class="energy" id="energy"></div>
+            <div class="rf-text">Мало спал, но тренировка вытянула. Прочитал пятнадцать страниц.</div>
+            <button class="btn btn-acc" type="button" id="closeDay" style="width:100%">Закрыть день</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
   <!-- PR 5 · Лира --><section class="wrap why" id="why"></section>
   <!-- PR 5 · Лира --><div class="mq" aria-hidden="true"></div>
   <!-- PR 6 · Лира --><section class="sec wrap" id="themes"></section>

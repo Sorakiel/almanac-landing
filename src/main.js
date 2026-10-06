@@ -10,6 +10,7 @@ import { initPlatformDownloads } from './modules/platformDownloads.js';
 import { initFaq } from './modules/faq.js';
 import { initYear } from './modules/year.js';
 import { initManifesto } from './modules/manifesto.js';
+import { initDay } from './modules/day.js';
 
 // Logos first: scenes measure their layout and the logos are part of it.
 mountLogos();
@@ -18,6 +19,7 @@ initTheme();
 // Scene modules register with scroll.js here, one import + init per scene (PR 2-7).
 initYear();
 initManifesto();
+initDay();
 
 initReveal();
 initScroll();
