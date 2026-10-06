@@ -1,3 +1,11 @@
+/* The old install window stays working until install v2 (PR 8) replaces it.
+   Its rules were written against the previous token names; map them here
+   instead of touching the new tokens. Delete this file with the old modal. */
+.im-overlay{--surface:var(--card);--surface-2:var(--card2);--bg-alt:var(--card2);--border:var(--sep);--text:var(--ink);--muted:var(--ink2);--muted-2:var(--ink3);--accent-deep:#C2562A;--radius-xl:38px;--font-mono:var(--mono)}
+.im-overlay button{border:0;background:none;cursor:pointer}
+.im-overlay .btn{align-self:flex-start}
+.im-steps{margin:0;padding:0;list-style:none}
+
 .im-overlay {
   position: fixed;
   inset: 0;
