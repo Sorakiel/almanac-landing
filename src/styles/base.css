@@ -1,142 +1,43 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--display);margin:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.03em}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:20px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-html {
-  background: var(--bg);
-  scroll-behavior: smooth;
-}
+/* section scaffolding shared by every plain (unpinned) scene */
+.sec{padding-block:120px 0}
+.sec-h{display:grid;gap:14px;max-width:760px;margin-bottom:44px}
+.kicker{font:600 14.5px var(--display);color:var(--accent)}
+.sec-h h2{font-size:clamp(36px,5vw,64px);line-height:1;font-weight:800;letter-spacing:-.045em}
+.sec-h p{color:var(--ink2);font-size:18.5px;max-width:34em}
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-display);
-  position: relative;
-  overflow-x: clip;
-  transition: background .6s ease, color .6s ease;
-  -webkit-font-smoothing: antialiased;
-  /* Faint graph-paper grid — a constant, low-key nod to "this is built like software,"
-     not just decorated like a marketing page. Kept subtle enough to read as texture. */
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--border) 14%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--border) 14%, transparent) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: -1px -1px;
-}
-[data-theme="coffee"] body {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px);
-}
+/* reveal on enter: only elements that start below the fold get .pre (reveal.js) */
+[data-rv]{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-rv].pre{opacity:0;transform:translateY(40px)}
 
-h1, h2, h3 {
-  text-wrap: balance;
-  margin: 0;
-  letter-spacing: -0.02em;
-  font-weight: 750;
-}
+/* ambient aurora, the same slow layer as module cards in the app */
+.aurora{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.aurora i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.9}
+.aurora i:nth-child(1){width:620px;height:520px;right:-120px;top:-160px;background:radial-gradient(circle,var(--glow),transparent 68%);animation:aur1 18s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:520px;height:460px;left:-180px;top:160px;background:radial-gradient(circle,color-mix(in srgb,var(--teal) 16%,transparent),transparent 68%);animation:aur2 22s ease-in-out infinite alternate}
+@keyframes aur1{to{transform:translate(-80px,60px) scale(1.12)}}
+@keyframes aur2{to{transform:translate(90px,-40px) scale(1.1)}}
+@keyframes aurT{to{transform:translate(-6%,5%) scale(1.1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}}
+@keyframes mIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.4}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-p {
-  margin: 0;
-}
+/* theme wipe: theme.js clips the new snapshot itself, the browser must not crossfade */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ul, ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-button {
-  font-family: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 6px;
-}
-
-.wrap {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 28px;
-  position: relative;
-  z-index: 2;
-}
-
-section {
-  position: relative;
-  z-index: 2;
-}
-
-.mono-label, .eyebrow {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  font-size: .72rem;
-  color: var(--muted-2);
-}
-
-.eyebrow {
-  color: var(--accent);
-  margin-bottom: 18px;
-  display: inline-block;
-}
-
-.section-head {
-  max-width: 640px;
-  margin-bottom: 40px;
-}
-
-.section-head h2 {
-  font-size: clamp(2rem, 3.6vw, 3rem);
-  letter-spacing: -.025em;
-  margin-top: 8px;
-}
-
-.section-head p {
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: 1.02rem;
-  line-height: 1.6;
-}
-
-/* fine-pointer only: custom cursor engages. Covers every element (not just a/button) and
-   wins over any element's own `cursor:` declaration (e.g. .faq-item p sets cursor:pointer)
-   — otherwise the native cursor reappears over anything that sets its own cursor value. */
-@media (pointer: fine) {
-  body.has-cursor, body.has-cursor * {
-    cursor: none !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  * {
-    animation: none !important;
-    transition: opacity .2s ease !important;
-  }
-  .reveal, .scatter-cell {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .fan-stage:not(.fanned) .fan-card,
-  .fan-stage.fanned .fan-card {
-    transform: none !important;
-  }
-  .cursor-dot, .cursor-ring {
-    display: none;
-  }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .aurora{display:none}
+  [data-rv].pre{opacity:1;transform:none}
 }

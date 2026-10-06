@@ -85,8 +85,11 @@ export function initInstallModal() {
     modal.classList.remove('open');
   }
 
-  document.querySelectorAll('[data-open-install]').forEach((btn) => {
-    btn.addEventListener('click', (e) => { e.preventDefault(); open(); });
+  // Delegated: scene PRs add [data-install] buttons after this runs.
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-install]')) return;
+    e.preventDefault();
+    open();
   });
   modal.querySelectorAll('[data-close-install]').forEach((btn) => btn.addEventListener('click', close));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });

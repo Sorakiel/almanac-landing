@@ -1,318 +1,163 @@
-/* ---------- preloader ---------- */
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: #0E0E10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  transition: opacity .7s cubic-bezier(.4, 0, .2, 1), visibility .7s;
-}
-.preloader.pl-done {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.pl-mark {
-  font-size: 2.6rem;
-  color: #EF8857;
-  animation: plSpin 2.6s cubic-bezier(.4, 0, .2, 1) infinite;
-}
-@keyframes plSpin {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.18) rotate(180deg); }
-}
-.pl-meter {
-  width: 180px;
-  height: 2px;
-  background: #2E2E33;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.pl-meter span {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #EF8857, #C2562A);
-  transition: width .18s linear;
-}
-.pl-pct {
-  font-family: var(--font-mono);
-  font-size: .7rem;
-  letter-spacing: .16em;
-  color: #85817A;
-}
-@media (prefers-reduced-motion: reduce) {
-  .pl-mark { animation: none; }
-}
+/* Shared pieces used by more than one scene. Scene-only styles live in scenes.css. */
 
-/* ---------- cursor + grain ---------- */
-.cursor-dot, .cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 999;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  will-change: transform;
-}
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  transition: opacity .2s ease;
-}
-.cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
-  transition: width .25s ease, height .25s ease, opacity .2s ease, border-color .25s ease;
-}
-.cursor-ring.hover {
-  width: 56px;
-  height: 56px;
-  border-color: var(--accent);
-}
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 998;
-  pointer-events: none;
-  opacity: .05;
-  mix-blend-mode: overlay;
-}
+/* glass, same recipe as the app's tab bar */
+.lg{position:relative;background:var(--g-tint);-webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);
+  box-shadow:inset 0 1px 0 var(--g-hi),inset 0 0 0 1px var(--g-edge),0 14px 34px -14px var(--g-shade),0 2px 6px rgba(0,0,0,.10)}
+.lg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,0) 38%,rgba(255,255,255,0) 72%,rgba(255,255,255,.08))}
+@media (prefers-reduced-transparency:reduce){.lg{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--card)}}
 
-/* ---------- nav ---------- */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 22px 28px;
-  max-width: 1180px;
-  margin: 0 auto;
-  transition: padding .35s ease, background .35s ease;
-}
-.nav.scrolled {
-  padding: 12px 28px;
-  background: color-mix(in srgb, var(--bg) 76%, transparent);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 var(--border);
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-weight: 750;
-  font-size: 1.05rem;
-  letter-spacing: -.01em;
-}
-.brand-glyph {
-  color: var(--accent);
-  font-size: 1.2rem;
-  transform: translateY(-1px);
-  display: inline-block;
-}
-.nav-links {
-  display: flex;
-  gap: 28px;
-  font-size: .92rem;
-  color: var(--muted);
-}
-.nav-links a {
-  position: relative;
-  padding: 4px 0;
-  transition: color .2s ease;
-}
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 1px;
-  width: 0;
-  background: var(--accent);
-  transition: width .25s ease;
-}
-.nav-links a:hover { color: var(--text); }
-.nav-links a:hover::after { width: 100%; }
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.theme-pin {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  transition: border-color .25s ease, color .25s ease, transform .25s ease;
-}
-.theme-pin:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.06); }
-.tp-icon { width: 19px; height: 19px; }
-[data-theme="dark"] .tp-sun,
-[data-theme="coffee"] .tp-moon {
-  display: none;
-}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 24px;border-radius:26px;border:0;font:600 16.5px var(--display);text-decoration:none;cursor:pointer;transition:transform .15s var(--ease),background .2s,box-shadow .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-acc{background:var(--accent);color:var(--on);box-shadow:0 12px 28px -12px var(--accent)}
+.btn-acc:hover{box-shadow:0 16px 34px -12px var(--accent)}
+.btn-soft{background:var(--card2);color:var(--ink)}
+.btn-soft:hover{background:color-mix(in srgb,var(--card2) 80%,var(--ink) 8%)}
+.btn-sm{height:40px;padding:0 18px;font-size:15px;border-radius:20px}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:var(--ink2);transition:background .2s,color .2s}
+.iconbtn:hover{background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink)}
+.iconbtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
-/* ---------- buttons ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 20px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: .92rem;
-  transition: transform .25s ease, box-shadow .25s ease;
-  border: 1px solid transparent;
-  white-space: nowrap;
-}
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
-  color: #1B1000;
-  box-shadow: 0 8px 24px -8px rgba(239, 136, 87, .55);
-}
-.btn-primary:hover { box-shadow: 0 14px 38px -10px rgba(239, 136, 87, .8); }
-.btn-ghost {
-  background: transparent;
-  border-color: var(--border);
-  color: var(--text);
-}
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-.btn-lg { padding: 15px 26px; font-size: 1rem; }
-.magnetic { will-change: transform; }
+/* nav */
+.nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:50;margin:12px auto 0;max-width:calc(var(--max) - 40px);width:calc(100% - 32px);height:60px;border-radius:30px;display:flex;align-items:center;gap:8px;padding:0 10px 0 18px}
+.brand{display:flex;align-items:center;gap:10px;font:700 18px var(--display);letter-spacing:-.02em;text-decoration:none}
+.nav-links{display:flex;gap:2px;margin-left:auto}
+.nav-links a{font:500 15px var(--display);text-decoration:none;color:var(--ink2);padding:8px 12px;border-radius:16px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 7%,transparent)}
+.nav-tools{display:flex;align-items:center;gap:8px;margin-left:8px}
+.i-sun{display:none}
+:root[data-theme="light"] .i-sun{display:block}:root[data-theme="light"] .i-moon{display:none}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .i-sun{display:block}:root:not([data-theme="dark"]) .i-moon{display:none}}
+@media (max-width:860px){.nav-links{display:none}.nav-tools{margin-left:auto}}
 
-/* ---------- tick ring (mirrors the app's CompletionDonut: 36 radial ticks, not a solid arc) ----------
-   Track/fill read from local custom properties so mockup cards that deliberately stay one fixed
-   theme (e.g. the "always dark" / "always coffee" screens in the product fan-stack) can override
-   them inline, independent of the page's own current theme. */
-.tick-ring {
-  /* Matches the app's CompletionDonut exactly: unfilled ticks at 16% border
-     opacity, not a guess — a higher opacity here reads as a visibly different,
-     "busier" ring even before anything animates. */
-  --tick-track: color-mix(in srgb, var(--border) 16%, transparent);
-  --tick-fill: var(--accent);
-}
-.tick-ring line {
-  stroke: var(--tick-track);
-  stroke-width: 5;
-  stroke-linecap: butt;
-  transition: stroke .3s ease;
-}
-.tick-ring line.filled {
-  stroke: var(--tick-fill);
-}
+/* page progress hairline above the nav */
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#F59E5C,#E8632A);z-index:60;pointer-events:none}
 
-/* ---------- glyph progress bar (mirrors the app's ▓/░ ProgressBlocks) ---------- */
-.glyph-bar {
-  position: relative;
-  font-family: var(--font-mono);
-  letter-spacing: .04em;
-  white-space: nowrap;
-  line-height: 1;
-}
-.gb-track {
-  color: color-mix(in srgb, var(--muted-2) 40%, transparent);
-}
-.gb-fill {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  width: 0;
-  color: var(--accent);
-  transition: width .7s ease-out;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 70%, #fff 85%, var(--accent) 100%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gbShimmer 3.2s ease-in-out infinite;
-}
-@keyframes gbShimmer {
-  0% { background-position: 0% 0; }
-  100% { background-position: -220% 0; }
-}
+/* logo = current app icon (logo.js) */
+.logo{display:inline-block;flex:none;position:relative}
+.logo svg{width:100%;height:100%;display:block;overflow:visible}
+.logo .tile,.logo .dia{transform-box:view-box;transform-origin:256px 256px}
+.logo .dia{transition:transform .7s var(--spring)}
+.logo .s{stroke-dasharray:100;stroke-dashoffset:0}
+.brand .logo{width:30px;height:30px;filter:drop-shadow(0 6px 12px rgba(232,99,42,.35))}
+.brand:hover .logo .dia{transform:rotate(90deg)}
+.logo.intro .tile{animation:tileIn .9s var(--spring) both}
+.logo.intro .s{stroke-dashoffset:100}
+.logo.intro .dia.s{animation:segDraw .9s .45s var(--ease) forwards,diaSnap .8s 1.35s var(--spring) both}
+.logo.intro .ring{animation:ringOut 1.4s 1.3s ease-out both}
+.logo .ring{position:absolute;inset:0;clip-path:polygon(18.75% 0,81.25% 0,100% 18.75%,100% 81.25%,81.25% 100%,18.75% 100%,0 81.25%,0 18.75%);background:radial-gradient(circle,transparent 58%,rgba(239,136,87,.8) 60%,transparent 72%);opacity:0;pointer-events:none}
+@keyframes tileIn{0%{transform:scale(.3) rotate(-45deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes segDraw{to{stroke-dashoffset:0}}
+@keyframes diaSnap{0%{transform:rotate(0)}100%{transform:rotate(90deg)}}
+@keyframes ringOut{0%{transform:scale(.8);opacity:.9}100%{transform:scale(2.1);opacity:0}}
+.logo.fin .s{stroke-dasharray:100;stroke-dashoffset:100}
+.logo.fin.full .tile{filter:drop-shadow(0 0 30px rgba(239,136,87,.6))}
+.logo.done-pop{animation:popMark .7s var(--spring)}
+@keyframes popMark{0%{transform:scale(1)}40%{transform:scale(1.12) rotate(4deg)}100%{transform:none}}
 
-/* ---------- ambient glow ---------- */
-/* Soft radial color blobs that sit behind section content (sections are already
-   position:relative + z-index:2 from base.css, so z-index:0 here is enough to
-   stay behind everything without extra stacking-context wrangling). Pure decoration,
-   opacity is intentionally low — the goal is atmosphere, not a colored spotlight. */
-.glow {
-  position: absolute;
-  /* Negative, not 0: sections are position:relative + z-index:2 (their own stacking
-     context), and most of their content is plain non-positioned flow — which paints
-     BEFORE a z-index:0 positioned sibling per the stacking spec. A negative index is
-     the only reliable way to stay behind static-flow content within that context. */
-  z-index: -1;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: var(--glow-opacity);
-  transition: opacity .6s ease;
-}
-.glow--accent { background: radial-gradient(circle, var(--accent) 0%, transparent 72%); }
-.glow--teal { background: radial-gradient(circle, var(--teal) 0%, transparent 72%); }
-.glow--amber { background: radial-gradient(circle, var(--amber) 0%, transparent 72%); }
+/* phone frame + the app's Today screen (today.js): hero, day, why, themes, devices */
+.phone{position:relative;width:340px;max-width:100%;height:712px;border-radius:52px;border:10px solid #0B0B0C;box-shadow:0 0 0 1.5px #2b2b2e,0 50px 90px -40px rgba(0,0,0,.55);background:var(--bg);overflow:hidden;font-family:var(--ui);color:var(--ink);isolation:isolate}
+.phone::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 55% at 50% -12%,var(--glow),transparent 60%);pointer-events:none;z-index:0}
+.p-status{position:relative;z-index:3;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 30px;font:600 14px var(--ui)}
+.p-status .isl{position:absolute;left:50%;top:9px;width:96px;height:28px;margin-left:-48px;border-radius:16px;background:#000}
+.p-status .bars{display:flex;gap:3px;align-items:center}.p-status .bars i{width:4px;height:4px;border-radius:50%;background:var(--ink)}.p-status .bars b{width:16px;height:8px;border-radius:2px;border:1.5px solid var(--ink);margin-left:4px}
+.p-scroll{position:absolute;inset:44px 0 0;overflow-y:auto;padding:6px 16px 120px;scrollbar-width:none;z-index:1}
+.p-scroll::-webkit-scrollbar{display:none}
+.p-head{display:flex;align-items:flex-end;justify-content:space-between;margin:4px 2px 12px}
+.p-head small{display:block;font:500 13.5px var(--ui);color:var(--ink2)}
+.p-head h3{font:700 30px/1.1 var(--ui);letter-spacing:-.02em}
+.p-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,var(--accent),#c2562a);display:grid;place-items:center;color:#fff;font:700 15px var(--ui)}
+.p-sum{background:var(--card);border-radius:22px;padding:12px 14px;display:flex;align-items:center;gap:14px}
+.p-sum svg{width:84px;height:84px;flex:none}
+.p-sum circle{transition:stroke-dashoffset .8s var(--ease)}
+.p-legend{flex:1;display:grid;gap:7px;min-width:0}
+.p-legend div{display:flex;align-items:center;gap:7px;font:400 13.5px var(--ui);white-space:nowrap}
+.p-legend i{width:8px;height:8px;border-radius:50%;flex:none}
+.p-legend b{margin-left:auto;font:500 15px var(--mono)}
+.p-legend small{color:var(--ink3);font:400 11px var(--mono);margin-left:3px;white-space:nowrap}
+.p-sec{display:flex;justify-content:space-between;align-items:baseline;margin:13px 4px 6px;font:600 18px var(--ui)}
+.p-sec span{font:400 13px var(--ui);color:var(--ink3)}
+.p-group{background:var(--card);border-radius:20px;overflow:hidden}
+.p-row{display:flex;align-items:center;gap:6px;min-height:54px;padding:0 12px 0 4px;position:relative;transition:opacity .3s}
+.p-row+.p-row::before{content:"";position:absolute;left:52px;right:0;top:0;height:1px;background:var(--sep)}
+.p-row .main{flex:1;min-width:0}
+.p-row .nm{font:500 16px var(--ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s}
+.p-row .sub{font:400 12.5px var(--ui);color:var(--ink2);display:flex;align-items:center;gap:4px}
+.p-row .sub svg{width:10px;height:10px;fill:var(--amber)}
+.p-row.done .nm{color:var(--ink3)}
+.p-check{position:relative;width:44px;height:44px;flex:none;display:grid;place-items:center;background:none;border:0;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+.p-check i{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink3);display:grid;place-items:center;transition:background .3s var(--spring),border-color .2s,transform .3s var(--spring)}
+.p-check svg{width:16px;height:16px;fill:none;stroke:var(--on);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .35s .08s var(--ease)}
+.p-row.done .p-check i{background:var(--hue,var(--accent));border-color:var(--hue,var(--accent));transform:scale(1.04)}
+.p-row.done .p-check svg{stroke-dashoffset:0}
+.p-row .pend{width:14px;height:14px;margin-right:4px;flex:none;stroke:var(--amber);fill:none;stroke-width:2;opacity:0;transform:scale(.6);transition:opacity .25s,transform .3s var(--spring)}
+.p-row.pending .pend{opacity:1;transform:none}
+.dots{display:flex;gap:3px}
+.dots i{width:5px;height:5px;border-radius:50%;background:color-mix(in srgb,var(--ink) 14%,transparent)}
+.dots i.d{background:var(--hue,var(--accent))}
+.dots i.t{width:7px;height:7px;margin-top:-1px;background:transparent;box-shadow:inset 0 0 0 1.5px var(--hue,var(--accent))}
+.p-row.done .dots i.t{background:var(--hue,var(--accent))}
+.p-modcard{background:var(--card);border-radius:20px;padding:12px 12px 12px 14px;display:flex;align-items:center;gap:12px}
+.p-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+.p-ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.p-modcard .tt{flex:1;min-width:0}.p-modcard small{display:block;font:400 12.5px var(--ui);color:var(--ink2)}.p-modcard b{font:600 16px var(--ui)}
+.p-pill{border:0;border-radius:18px;height:34px;padding:0 14px;font:600 14px var(--ui);cursor:pointer}
+.p-tabbar{position:absolute;left:12px;right:84px;bottom:14px;height:62px;border-radius:31px;display:flex;align-items:center;justify-content:space-around;z-index:4}
+.p-tab{display:grid;justify-items:center;gap:2px;font:500 10.5px var(--ui);color:var(--ink2);width:64px;position:relative;z-index:1}
+.p-tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.p-tab.on{color:var(--accent)}
+.p-tab.on::before{content:"";position:absolute;inset:-6px -2px;border-radius:24px;background:color-mix(in srgb,var(--ink) 9%,transparent);z-index:-1}
+.p-plus{position:absolute;right:12px;bottom:14px;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;color:var(--accent);z-index:4}
+.p-plus svg{width:26px;height:26px;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;fill:none}
 
-/* ---------- terminal window-chrome dots ---------- */
-/* Real macOS-style traffic lights instead of generic grey dots — used on every
-   card styled as a little window (hero demo, product fan-cards, stack terminal),
-   so the "this is a terminal/editor" signal repeats consistently across the page. */
-.tl-dot { width: 8px; height: 8px; border-radius: 50%; }
+/* tap ripple, odometer, sparkle burst (fx.js) */
+.rip{position:absolute;width:28px;height:28px;border-radius:50%;border:2px solid var(--hue,var(--accent));animation:rip .55s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(2.1);opacity:0}}
+.odo{display:inline-block;height:1.2em;overflow:hidden;vertical-align:bottom;line-height:1.2em}
+.odo>span{display:block;animation:odoUp .5s var(--spring) both}
+.odo.down>span{animation-name:odoDown}
+@keyframes odoUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes odoDown{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.burst{position:absolute;width:0;height:0;z-index:30;pointer-events:none}
+.burst i{position:absolute;left:0;top:0;border-radius:50%;animation:burst .8s cubic-bezier(.15,.7,.3,1) forwards}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}70%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0);opacity:0}}
 
-.term-cursor.foot-cursor { width: 5px; height: 10px; margin-left: 6px; }
-.tl-dot.tl-r { background: var(--tl-red) !important; }
-.tl-dot.tl-y { background: var(--tl-yellow) !important; }
-.tl-dot.tl-g { background: var(--tl-green) !important; }
+/* "День закрыт" seal (today.js) */
+.seal-wrap{position:absolute;inset:0;z-index:20;display:grid;place-items:center;pointer-events:none}
+.seal-wrap::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%);animation:sealGlow 2.3s ease-out forwards}
+.seal{position:relative;width:170px;height:170px;animation:sealIn 2.3s cubic-bezier(.34,1.3,.64,1) forwards}
+.seal svg{width:100%;height:100%;overflow:visible}
+.seal .sp{position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;animation:spark .9s var(--ease) .15s forwards;opacity:0}
+@keyframes sealIn{0%{transform:scale(1.5) rotate(-18deg);opacity:0}18%{transform:scale(.94) rotate(3deg);opacity:1}26%{transform:scale(1) rotate(0)}82%{transform:scale(1);opacity:1}100%{transform:scale(.9);opacity:0}}
+@keyframes sealGlow{0%{opacity:0}20%{opacity:1}80%{opacity:.8}100%{opacity:0}}
+@keyframes spark{0%{transform:translate(-50%,-50%);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.3);opacity:0}}
 
-/* ---------- reveal ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .7s cubic-bezier(.2, .6, .2, 1), transform .7s cubic-bezier(.2, .6, .2, 1);
-}
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* sync capsule + network switch: why (offline), devices, hero float */
+.capsule{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);height:44px;border-radius:22px;padding:0 16px 0 12px;display:flex;align-items:center;gap:10px;font:500 14px var(--ui);white-space:nowrap;transition:transform .45s var(--spring),opacity .3s}
+.capsule.hide{transform:translate(-50%,80px);opacity:0}
+.capsule .dot{width:10px;height:10px;border-radius:50%;background:var(--amber);flex:none}
+.capsule.ok .dot{background:var(--green)}
+.capsule.off .dot{background:var(--red)}
+.capsule.spin .dot{background:transparent;border:2px solid var(--teal);border-right-color:transparent;animation:spin .8s linear infinite}
+.switch{width:52px;height:32px;border-radius:16px;border:0;background:var(--card2);position:relative;cursor:pointer;flex:none;transition:background .25s}
+.switch::after{content:"";position:absolute;left:3px;top:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:transform .3s var(--spring)}
+.switch[aria-checked="true"]{background:var(--red)}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
 
-/* ---------- footer ---------- */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 40px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-footer .foot-links {
-  display: flex;
-  gap: 22px;
-  font-size: .85rem;
-  color: var(--muted);
-}
-footer .foot-copy {
-  font-family: var(--font-mono);
-  font-size: .66rem;
-  color: var(--muted-2);
-  letter-spacing: .06em;
-  display: inline-flex;
-  align-items: center;
-}
+/* demo card: the live mini-app panel used by the day scene */
+.demo{background:var(--card);border-radius:30px;padding:22px;display:grid;justify-items:center;gap:14px;text-align:center;font-family:var(--ui);position:relative;min-height:400px;align-content:center;box-shadow:0 0 0 1px var(--sep),0 40px 80px -40px rgba(0,0,0,.5);overflow:hidden;isolation:isolate}
+.demo::before{content:"";position:absolute;inset:-30%;z-index:-1;background:radial-gradient(45% 40% at 85% 8%,color-mix(in srgb,var(--tint) 20%,transparent),transparent 70%),radial-gradient(40% 35% at 5% 95%,color-mix(in srgb,var(--tint) 10%,transparent),transparent 70%);animation:aurT 16s ease-in-out infinite alternate}
+.demo .p-group{width:100%;text-align:left}
+.enter>*{animation:mIn .5s var(--ease) both}
+.enter>*:nth-child(2){animation-delay:.05s}.enter>*:nth-child(3){animation-delay:.1s}.enter>*:nth-child(4){animation-delay:.15s}.enter>*:nth-child(5){animation-delay:.2s}
 
-@media (max-width: 860px) {
-  .nav-links { display: none; }
-}
+/* footer */
+footer{margin-top:110px;border-top:1px solid var(--sep);padding-block:28px 40px}
+.foot{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px}
+.foot nav{display:flex;flex-wrap:wrap;gap:6px 20px;margin-left:auto}
+.foot nav a{text-decoration:none;color:var(--ink2);font-size:15px}
+.foot nav a:hover{color:var(--ink)}
+.foot small{color:var(--ink3);font-size:14px;width:100%}
+
+@media (prefers-reduced-motion:reduce){.demo::before{display:none}}
