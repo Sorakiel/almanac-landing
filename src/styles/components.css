@@ -161,3 +161,10 @@ footer{margin-top:110px;border-top:1px solid var(--sep);padding-block:28px 40px}
 .foot small{color:var(--ink3);font-size:14px;width:100%}
 
 @media (prefers-reduced-motion:reduce){.demo::before{display:none}}
+
+/* rest water: hero float + workout panel */
+.water{transition:transform 1s linear}
+.water path{fill:var(--teal)}
+.water .w1{opacity:.85;animation:waveX 3.2s linear infinite}
+.water .w2{opacity:.4;animation:waveX 5.5s linear infinite reverse;transform:translateY(-5px)}
+@keyframes waveX{from{translate:0 0}to{translate:-100px 0}}

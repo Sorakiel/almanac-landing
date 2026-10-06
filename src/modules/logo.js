@@ -37,7 +37,12 @@ export function Logo({ variant = 'plain', cls = '', size } = {}) {
   return `<span class="${classes}"${style}>${logoSVG(variant)}${ring}</span>`;
 }
 
-/** Fills every `<span class="logo" data-logo="plain|intro|final">` placeholder in the page. */
+/**
+ * Logos visible on first paint (nav, hero, footer) are written into index.html
+ * with the same markup, so the hero intro starts with the page instead of
+ * after the script loads. Use the data-logo placeholder for anything else.
+ *
+ * Fills every `<span class="logo" data-logo="plain|intro|final">` placeholder in the page. */
 export function mountLogos(root = document) {
   root.querySelectorAll('[data-logo]').forEach((el) => {
     const variant = el.dataset.logo || 'plain';
