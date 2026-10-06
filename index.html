@@ -184,8 +184,85 @@
     <div class="mq-row" data-mq="1"><span>Привычки<i class="d"></i><b class="o">Тренировки</b><i class="d"></i>Чтение<i class="d"></i><b class="o">Фокус</b><i class="d"></i>Рефлексия<i class="d"></i></span><span>Привычки<i class="d"></i><b class="o">Тренировки</b><i class="d"></i>Чтение<i class="d"></i><b class="o">Фокус</b><i class="d"></i>Рефлексия<i class="d"></i></span></div>
     <div class="mq-row" data-mq="-1"><span><b class="o">Финансы скоро</b><i class="d"></i>Сон скоро<i class="d"></i><b class="o">Друзья</b><i class="d"></i>Прогресс<i class="d"></i></span><span><b class="o">Финансы скоро</b><i class="d"></i>Сон скоро<i class="d"></i><b class="o">Друзья</b><i class="d"></i>Прогресс<i class="d"></i></span></div>
   </div>
-  <!-- PR 6 · Лира --><section class="sec wrap" id="themes"></section>
-  <!-- PR 6 · Лира --><section class="sec wrap" id="devices"></section>
+  <section class="sec wrap" id="themes">
+    <div class="themes">
+      <div class="theme-copy" data-rv>
+        <span class="kicker">Темы</span>
+        <h2>Тёмная для вечера. <em>Coffee</em> для дня.</h2>
+        <p>Один и тот же экран, тот же оранжевый, разное настроение. Потяните ручку на телефоне, чтобы сравнить, или переключите всю страницу.</p>
+        <div><button class="btn btn-soft" type="button" data-theme-toggle><svg><use href="#i-sun"/></svg>Переключить страницу</button></div>
+      </div>
+      <div>
+        <div class="split" id="split" style="--x:50%">
+          <div class="phone" style="background:#0B0B0C">
+            <div class="layer t-dark" id="splitDark"></div>
+            <div class="layer top t-coffee" id="splitCoffee"></div>
+          </div>
+          <div class="split-handle" aria-hidden="true"><span><svg><use href="#i-lr"/></svg></span></div>
+          <input type="range" id="splitRange" min="0" max="100" value="50" aria-label="Граница между тёмной темой и coffee">
+        </div>
+        <div class="split-labels"><span>Тёмная</span><span>Coffee</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec wrap" id="devices">
+    <div class="sec-h" data-rv>
+      <span class="kicker">Устройства</span>
+      <h2>Телефон, компьютер, браузер. Одни и те же данные.</h2>
+      <p>Отметили в метро на телефоне - через секунду видно на ноутбуке. На компьютере Almanac раскладывается в две колонки.</p>
+    </div>
+    <div class="dev-stage" id="devStage">
+      <div class="win2" aria-label="Almanac на компьютере">
+        <div class="w2-side lg">
+          <div class="tl"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></div>
+          <div class="w2-brand"><span class="logo" data-logo="plain"></span><b>Almanac</b></div>
+          <div class="win-new">+ Создать <span class="num" style="margin-left:auto;opacity:.7">⌘N</span></div>
+          <div class="win-item on"><i></i>Сегодня</div>
+          <div class="win-item"><i></i>Прогресс</div>
+          <div class="win-item"><i></i>Модули</div>
+          <div class="win-cap">Мои модули</div>
+          <div class="win-item"><i style="background:var(--teal)"></i>Тренировки</div>
+          <div class="win-item"><i style="background:var(--amber)"></i>Чтение</div>
+          <div class="win-item"><i style="background:var(--accent)"></i>Фокус</div>
+          <div class="win-item"><i style="background:var(--violet)"></i>Рефлексия</div>
+        </div>
+        <div class="w2-main">
+          <div class="w2-top"><div><small>Понедельник, 6 октября</small><h4>Сегодня</h4></div><span class="w2-search">Найти или сделать… <span class="num">⌘K</span></span></div>
+          <div class="w2-grid">
+            <div class="w-card" id="deskList">
+              <div class="w-row d" style="--hue:var(--teal)"><i></i>Медитация</div>
+              <div class="w-row" data-sync="a" style="--hue:var(--teal)"><i></i>Растяжка<span class="w-flash"></span></div>
+              <div class="w-row" data-sync="b" style="--hue:var(--accent)"><i></i>Английский<span class="w-flash"></span></div>
+              <div class="w-row" data-sync="c" style="--hue:var(--amber)"><i></i>Читать 20 страниц<span class="w-flash"></span></div>
+              <div class="w-row" style="--hue:var(--violet)"><i></i>Без телефона после 23:00</div>
+            </div>
+            <div class="w2-col">
+              <div class="w-card w2-rings"><svg viewBox="0 0 44 44" width="52" height="52" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-opacity=".18" stroke-width="6"/><circle id="deskRing" cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="85.4" transform="rotate(-90 22 22)" style="transition:stroke-dashoffset .8s var(--ease)"/></svg><div><small>Привычки</small><b class="num" id="deskCnt">1</b><span class="w2-of"> из 5</span></div></div>
+              <div class="w-card w-mod"><span class="p-ic" style="background:color-mix(in srgb,var(--teal) 16%,transparent);color:var(--teal)"><svg><use href="#i-dumb"/></svg></span><div><small>Тренировка сегодня</small>Ноги · 28 мин</div></div>
+              <div class="w-card w-mod"><span class="p-ic" style="background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber)"><svg><use href="#i-book"/></svg></span><div><small>Читаю</small>212 из 320 стр</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dev-phone" aria-label="Almanac на телефоне">
+        <div class="dp-island"></div>
+        <div class="dp-head"><small>Сегодня</small><b>Утро и день</b></div>
+        <div class="p-group" id="phoneList"></div>
+        <div class="capsule lg hide" id="devCap" role="status" aria-live="polite"><span class="dot"></span><span id="devCapT">Синхронизировано</span></div>
+      </div>
+      <svg class="dev-link" id="devLink" aria-hidden="true"><path id="devPath" d="" fill="none"/><circle id="devDot" r="6" cx="-20" cy="-20"/></svg>
+    </div>
+    <p class="dev-cap"><i aria-hidden="true"></i><b>Нажмите привычку на телефоне</b> - на компьютере она отметится сама</p>
+    <div class="dock" id="dock">
+      <button class="dk-chip" type="button" data-install="android" data-plat="android"><svg><use href="#i-phone"/></svg><span><b>Android</b><small>APK без Google Play</small></span></button>
+      <button class="dk-chip" type="button" data-install="ios" data-plat="ios"><svg><use href="#i-share"/></svg><span><b>iPhone и iPad</b><small>Через Safari</small></span></button>
+      <button class="dk-chip" type="button" data-install="windows" data-plat="windows"><svg><use href="#i-win"/></svg><span><b>Windows</b><small>Нативное приложение</small></span></button>
+      <button class="dk-chip" type="button" data-install="macos" data-plat="macos"><svg><use href="#i-mac"/></svg><span><b>macOS</b><small>Нативное приложение</small></span></button>
+      <button class="dk-chip" type="button" data-install="linux" data-plat="linux"><svg><use href="#i-term"/></svg><span><b>Linux</b><small>AppImage, .deb, .rpm</small></span></button>
+      <a class="dk-chip" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener"><svg><use href="#i-globe"/></svg><span><b>Браузер</b><small>Без установки</small></span></a>
+    </div>
+
+  </section>
   <section class="final" id="final">
     <div class="final-stage">
       <div class="final-inner">
