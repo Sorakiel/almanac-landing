@@ -186,12 +186,57 @@
   </div>
   <!-- PR 6 · Лира --><section class="sec wrap" id="themes"></section>
   <!-- PR 6 · Лира --><section class="sec wrap" id="devices"></section>
-  <!-- PR 7 · Орион --><section class="final" id="final"></section>
-  <!-- PR 7 · Орион --><section class="sec wrap" id="support"></section>
-  <!-- PR 7 · Орион --><section class="sec wrap" id="faq"></section>
+  <section class="final" id="final">
+    <div class="final-stage">
+      <div class="final-inner">
+        <span class="logo" data-logo="final" id="finalLogo"></span>
+        <div class="meter"><span class="num" id="finalPct">0</span>% дня</div>
+        <h2>Начните свою первую страницу сегодня.</h2>
+        <p>Установка займёт минуту, первая привычка - ещё десять секунд.</p>
+        <div class="cta-row" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center"><button class="btn btn-acc" type="button" data-install><svg><use href="#i-down"/></svg>Установить Almanac</button><a class="btn btn-soft" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">Открыть в браузере</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec wrap" id="support">
+    <div class="support" data-rv>
+      <div>
+        <span class="kicker">Поддержать</span>
+        <h2 style="margin-top:12px">Almanac бесплатен. Платных функций нет и не будет.</h2>
+        <p>Если он вам помогает, можно поддержать разработку. Деньги идут на базу данных, домен и сборки для всех платформ.</p>
+      </div>
+      <div class="support-side">
+        <a class="btn btn-acc" href="https://boosty.to/sorakield" target="_blank" rel="noopener">Поддержать на Boosty</a>
+        <div class="cups"><span>Чашка кофе</span><span>Месяц базы</span><span>Час разработки</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec wrap" id="faq">
+    <div class="sec-h" data-rv><span class="kicker">Вопросы</span><h2>Частые вопросы</h2></div>
+    <div class="faq">
+      <div class="faq-item is-open">
+        <button class="faq-q" type="button" aria-expanded="true" aria-controls="faq-a-1">Это правда бесплатно?<i aria-hidden="true"></i></button>
+        <div class="faq-answer" id="faq-a-1"><p>Да, полностью. Рекламы, подписок и платных функций нет. Поддержка на Boosty добровольная и ничего не открывает.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-2">Мои данные видят другие пользователи?<i aria-hidden="true"></i></button>
+        <div class="faq-answer" id="faq-a-2"><p>Нет. Row-Level Security в Postgres: каждый видит только свои привычки, тренировки и записи. Это гарантия базы данных, а не только интерфейса.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-3">Работает без интернета?<i aria-hidden="true"></i></button>
+        <div class="faq-answer" id="faq-a-3"><p>Да. Отметки, подходы и записи сохраняются на устройстве и отправляются, когда появится сеть, даже если приложение успели закрыть.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-4">На каких устройствах?<i aria-hidden="true"></i></button>
+        <div class="faq-answer" id="faq-a-4"><p>Android (APK), Windows, macOS и Linux - нативные приложения. iPhone и iPad - через Safari как веб-приложение. И просто в любом браузере.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-5">Что будет дальше?<i aria-hidden="true"></i></button>
+        <div class="faq-answer" id="faq-a-5"><p>Следующие модули - финансы и сон. Каждый включается отдельно, главный экран не разрастается. Идею своего модуля можно предложить разработчику в любой момент: в профиле есть раздел для предложений.</p></div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- PR 7 · Орион -->
 <footer class="wrap">
   <div class="foot">
     <a class="brand" href="#top"><span class="logo"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="lgFoot" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F59E5C"/><stop offset="1" stop-color="#E8632A"/></linearGradient></defs><rect class="tile" x="16" y="16" width="480" height="480" rx="128" fill="url(#lgFoot)"/><path class="dia" d="M256 140 L372 256 L256 372 L140 256 Z" fill="none" stroke="#1A1206" stroke-width="30" stroke-linejoin="round"/></svg></span>Almanac</a>
