@@ -11,6 +11,7 @@ import { initPlatformDownloads } from './modules/platformDownloads.js';
 import { initFaq } from './modules/faq.js';
 import { initYear } from './modules/year.js';
 import { initManifesto } from './modules/manifesto.js';
+import { initDay } from './modules/day.js';
 
 // Logo placeholders first: scenes measure their layout and logos are part of it.
 mountLogos();
@@ -20,6 +21,7 @@ initTheme();
 initHero();
 initYear();
 initManifesto();
+initDay();
 
 initReveal();
 initScroll();
