@@ -3,8 +3,34 @@
 /* ===== hero (#hero) ===== */
 
 /* ===== year (#idea) ===== */
+.year{padding-block:40px 0}
+.year-grid{display:grid;grid-template-columns:repeat(53,minmax(0,1fr));grid-auto-flow:column;grid-template-rows:repeat(7,auto);gap:clamp(2px,.45vw,6px);margin-top:44px}
+.year-grid i{aspect-ratio:1;border-radius:22%;transform:rotate(45deg) scale(.62);background:color-mix(in srgb,var(--ink) 7%,transparent);transition:background .35s,transform .45s var(--spring)}
+.year-grid i.on{transform:rotate(45deg) scale(.8)}
+.year-grid i.on.l1{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+.year-grid i.on.l2{background:color-mix(in srgb,var(--accent) 58%,transparent)}
+.year-grid i.on.l3{background:var(--accent)}
+.year-grid i.on.l4{background:#F59E5C;box-shadow:0 0 10px -2px #F59E5C}
+.year-grid i.today{outline:2px solid var(--ink);outline-offset:1px}
+.year-grid i.fut{background:transparent;box-shadow:inset 0 0 0 1px var(--sep)}
+.year-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px}
+.year-row h2{font-size:clamp(40px,6.2vw,84px);line-height:.98;font-weight:800;letter-spacing:-.045em;max-width:12em}
+.year-row h2 em{font-style:normal;color:var(--accent)}
+.year-stats{display:flex;gap:28px}
+.year-stats div{display:grid}
+.year-stats b{font:500 clamp(32px,4vw,48px)/1 var(--mono);letter-spacing:-.04em}
+.year-stats small{color:var(--ink2);font-size:14px;margin-top:6px}
+.months{display:grid;grid-template-columns:repeat(12,1fr);margin-top:12px;color:var(--ink3);font-size:12.5px}
+@media (max-width:700px){.year-grid{grid-template-columns:repeat(27,minmax(0,1fr));grid-template-rows:repeat(14,auto)}.months{display:none}}
 
 /* ===== manifesto ===== */
+.manifesto{padding-block:140px 0}
+.manifesto p{font:700 clamp(28px,4.1vw,56px)/1.14 var(--display);letter-spacing:-.035em;max-width:20em}
+.manifesto p span{color:color-mix(in srgb,var(--ink) 18%,transparent);transition:color .4s}
+.manifesto p span.lit{color:var(--ink)}
+.manifesto p span.acc.lit{color:var(--accent)}
+.manifesto small{display:flex;align-items:center;gap:10px;margin-top:28px;color:var(--ink2);font-size:15px}
+.manifesto small .logo{width:22px;height:22px}
 
 /* ===== one day (#day) ===== */
 
