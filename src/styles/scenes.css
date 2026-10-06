@@ -202,7 +202,6 @@
 
 /* ===== why (#why) ===== */
 .why{margin-top:160px}
-.why-head{margin-bottom:40px}
 .stack-wrap{position:relative}
 .card-s{position:sticky;top:calc(96px + var(--i)*18px);min-height:480px;margin-bottom:60px;border-radius:36px;background:var(--card);box-shadow:0 0 0 1px var(--sep),0 -20px 60px -30px rgba(0,0,0,.6);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;padding:clamp(24px,4vw,52px);overflow:hidden;transform-origin:50% 0;isolation:isolate;will-change:transform}
 .card-s::before{content:"";position:absolute;inset:-30%;z-index:-1;background:radial-gradient(40% 50% at 95% 0%,color-mix(in srgb,var(--tint) 22%,transparent),transparent 70%)}
