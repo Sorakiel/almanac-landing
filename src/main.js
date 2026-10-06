@@ -12,6 +12,8 @@ import { initFaq } from './modules/faq.js';
 import { initYear } from './modules/year.js';
 import { initManifesto } from './modules/manifesto.js';
 import { initDay } from './modules/day.js';
+import { initWhy } from './modules/why.js';
+import { initMarquee } from './modules/marquee.js';
 
 // Logo placeholders first: scenes measure their layout and logos are part of it.
 mountLogos();
@@ -22,6 +24,8 @@ initHero();
 initYear();
 initManifesto();
 initDay();
+initWhy();
+initMarquee();
 
 initReveal();
 initScroll();

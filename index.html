@@ -153,8 +153,36 @@
       </div>
     </div>
   </section>
-  <!-- PR 5 · Лира --><section class="wrap why" id="why"></section>
-  <!-- PR 5 · Лира --><div class="mq" aria-hidden="true"></div>
+  <section class="wrap why" id="why">
+    <div class="sec-h why-head" data-rv><span class="kicker">Почему не бросите</span><h2>Трекер бросают, когда он мешает. Этот не мешает.</h2></div>
+    <div class="stack-wrap" id="stack">
+      <article class="card-s" style="--i:0;--tint:var(--accent)">
+        <div><span class="k">Скорость</span><h3>Один тап. Никакого ожидания.</h3><p>Экран обновляется в момент касания, синхронизация идёт в фоне. Ошиблись - «Отменить» в подсказке снизу.</p></div>
+        <div class="card-vis"><div><button class="tap-big" type="button" id="tapBig" aria-pressed="false" aria-label="Отметить привычку"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><p class="tap-label">Серия <b class="num" id="tapSt">29</b> дней</p></div></div>
+      </article>
+      <article class="card-s" style="--i:1;--tint:var(--amber)">
+        <div><span class="k">Офлайн</span><h3>Метро, самолёт, дача.</h3><p>Без сети всё работает как обычно. Отметки ждут на устройстве и уходят на сервер, когда связь вернётся, даже если приложение закрыли.</p></div>
+        <div class="card-vis">
+          <div class="sync-demo" style="width:min(380px,100%)">
+            <div class="sync-top"><span>Без интернета</span><button class="switch" id="netSw" type="button" role="switch" aria-checked="false" aria-label="Выключить сеть"></button></div>
+            <div class="sync-screen"><div class="p-group" id="syncList"></div><div class="capsule lg hide" id="capsule" role="status" aria-live="polite"><span class="dot"></span><span id="capText"></span></div></div>
+          </div>
+        </div>
+      </article>
+      <article class="card-s" style="--i:2;--tint:var(--teal)">
+        <div><span class="k">Приватность</span><h3>Ваши данные видите только вы.</h3><p>Это правило самой базы данных, а не только интерфейса: Row-Level Security в Postgres. Друзья видят только то, чем вы делитесь.</p></div>
+        <div class="card-vis"><div class="priv"><div class="other"><i style="background:#6B8FD8"></i>Марина · 14 привычек</div><div class="me"><i style="background:linear-gradient(140deg,#F59E5C,#E8632A)"></i>Вы · 5 привычек, серия 12</div><div class="other"><i style="background:#8C7BD8"></i>Артём · 9 привычек</div></div><span class="thief back" aria-hidden="true"><svg viewBox="0 0 200 172"><g class="bub"><circle cx="126" cy="62" r="4" fill="#F3EFE7"/><circle cx="136" cy="48" r="6.5" fill="#F3EFE7"/><g transform="translate(100 -16) scale(.85)"><path d="M20 44c0-14 12-24 26-22 5-9 17-13 27-8 10-4 22 2 24 13 11 3 15 15 9 24 3 11-7 20-18 18-6 8-19 9-26 3-10 5-23 0-25-10-11-1-18-10-17-18z" fill="#F3EFE7"/><text class="q" x="58" y="56" text-anchor="middle" font-family="Onest, sans-serif" font-weight="800" font-size="36" fill="#1A1206">?</text></g></g><defs><pattern id="tStripe" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#0B0B0D"/><rect y="8" width="16" height="8" fill="#F3EFE7"/></pattern></defs><path d="M26 172c0-40 26-58 64-58s64 18 64 58z" fill="url(#tStripe)" stroke="rgba(255,255,255,.16)" stroke-width="1.5"/><path d="M70 118q20 10 40 0" fill="none" stroke="#0B0B0D" stroke-width="6" stroke-linecap="round"/><g class="head"><circle cx="90" cy="84" r="32" fill="#141417" stroke="rgba(255,255,255,.16)" stroke-width="1.5"/><path d="M58 82c0-36 64-36 64 0z" fill="#0B0B0D"/><rect x="58" y="74" width="64" height="9" rx="4.5" fill="#1C1C20"/><rect x="58" y="88" width="64" height="13" rx="6.5" fill="#F3EFE7"/><ellipse cx="90" cy="94" rx="6" ry="5" fill="#E4DED2"/></g></svg></span></div>
+      </article>
+      <article class="card-s" style="--i:3;--tint:var(--violet)">
+        <div><span class="k">Цена</span><h3>Бесплатно. Насовсем.</h3><p>Никаких подписок, рекламы и платных функций. Если захотите, можно поддержать разработку на Boosty, но это ничего не открывает.</p></div>
+        <div class="card-vis"><div class="price"><b id="price">299</b><small>₽ в месяц</small><div class="was"><s>пробный период</s><s>премиум</s><s>реклама</s></div></div></div>
+      </article>
+    </div>
+  </section>
+  <div class="mq" aria-hidden="true">
+    <div class="mq-row" data-mq="1"><span>Привычки<i class="d"></i><b class="o">Тренировки</b><i class="d"></i>Чтение<i class="d"></i><b class="o">Фокус</b><i class="d"></i>Рефлексия<i class="d"></i></span><span>Привычки<i class="d"></i><b class="o">Тренировки</b><i class="d"></i>Чтение<i class="d"></i><b class="o">Фокус</b><i class="d"></i>Рефлексия<i class="d"></i></span></div>
+    <div class="mq-row" data-mq="-1"><span><b class="o">Финансы скоро</b><i class="d"></i>Сон скоро<i class="d"></i><b class="o">Друзья</b><i class="d"></i>Прогресс<i class="d"></i></span><span><b class="o">Финансы скоро</b><i class="d"></i>Сон скоро<i class="d"></i><b class="o">Друзья</b><i class="d"></i>Прогресс<i class="d"></i></span></div>
+  </div>
   <!-- PR 6 · Лира --><section class="sec wrap" id="themes"></section>
   <!-- PR 6 · Лира --><section class="sec wrap" id="devices"></section>
   <!-- PR 7 · Орион --><section class="final" id="final"></section>
