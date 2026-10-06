@@ -6,7 +6,8 @@
   <title>Almanac — личный командный центр для привычек и тренировок</title>
   <meta name="description" content="Almanac — бесплатный life OS для привычек и тренировок. Один экран отвечает, где вы сейчас и куда движетесь. Один тап, оптимистичный UI, две темы, открытый исходный код." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0' y1='0' x2='512' y2='512' gradientUnits='userSpaceOnUse'><stop offset='0' stop-color='%23F59E5C'/><stop offset='1' stop-color='%23E8632A'/></linearGradient></defs><rect x='16' y='16' width='480' height='480' rx='128' fill='url(%23g)'/><path d='M256 140 L372 256 L256 372 L140 256 Z' fill='none' stroke='%231A1206' stroke-width='30' stroke-linejoin='round'/></svg>" />
-  <link rel="preload" href="/src/fonts/Onest-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/src/fonts/Onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/src/fonts/Onest-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script>
     // Apply a stored theme before first paint; no stored choice = follow the system.
     try { var t = localStorage.getItem('almanac-landing-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
