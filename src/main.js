@@ -9,6 +9,8 @@ import { initHero } from './modules/hero.js';
 import { initInstallModal } from './modules/installModal.js';
 import { initPlatformDownloads } from './modules/platformDownloads.js';
 import { initFaq } from './modules/faq.js';
+import { initYear } from './modules/year.js';
+import { initManifesto } from './modules/manifesto.js';
 
 // Logo placeholders first: scenes measure their layout and logos are part of it.
 mountLogos();
@@ -16,6 +18,8 @@ initTheme();
 
 // Scene modules register with scroll.js here, one import + init per scene (PR 2-7).
 initHero();
+initYear();
+initManifesto();
 
 initReveal();
 initScroll();
