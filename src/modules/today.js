@@ -54,7 +54,7 @@ export function todayHTML(list, live) {
   const done = list.filter((h) => h.done).length;
   let html =
     '<div class="p-status"><span>9:41</span><span class="isl"></span><span class="bars"><i></i><i></i><i></i><b></b></span></div><div class="p-scroll">' +
-    '<div class="p-head"><div><small>Понедельник, 6 октября</small><h3>Сегодня</h3></div><span class="p-ava">Н</span></div>' +
+    '<div class="p-head"><div><small>Понедельник, 6 октября</small><b class="p-title">Сегодня</b></div><span class="p-ava">Н</span></div>' +
     `<div class="p-sum">${rings(done, list.length)}<div class="p-legend">` +
     `<div><i style="background:var(--accent)"></i>Привычки<b class="cnt">${done}</b><small>из ${list.length}</small></div>` +
     '<div><i style="background:var(--teal)"></i>Тренировка<b>0</b><small>из 1</small></div>' +

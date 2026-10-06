@@ -66,7 +66,8 @@
 .p-scroll::-webkit-scrollbar{display:none}
 .p-head{display:flex;align-items:flex-end;justify-content:space-between;margin:4px 2px 12px}
 .p-head small{display:block;font:500 13.5px var(--ui);color:var(--ink2)}
-.p-head h3{font:700 30px/1.1 var(--ui);letter-spacing:-.02em}
+/* not a heading: the phone is a demo, a real h3 would break the page outline */
+.p-head .p-title{display:block;font:700 30px/1.1 var(--ui);letter-spacing:-.02em}
 .p-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,var(--accent),#c2562a);display:grid;place-items:center;color:#fff;font:700 15px var(--ui)}
 .p-sum{background:var(--card);border-radius:22px;padding:12px 14px;display:flex;align-items:center;gap:14px}
 .p-sum svg{width:84px;height:84px;flex:none}
