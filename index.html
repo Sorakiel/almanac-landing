@@ -49,7 +49,7 @@
 <div class="prog" id="prog" aria-hidden="true"></div>
 
 <header class="nav lg" id="nav">
-  <a class="brand" href="#top" aria-label="Almanac, наверх"><span class="logo" data-logo="plain"></span>Almanac</a>
+  <a class="brand" href="#top" aria-label="Almanac, наверх"><span class="logo"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="lgNav" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F59E5C"/><stop offset="1" stop-color="#E8632A"/></linearGradient></defs><rect class="tile" x="16" y="16" width="480" height="480" rx="128" fill="url(#lgNav)"/><path class="dia" d="M256 140 L372 256 L256 372 L140 256 Z" fill="none" stroke="#1A1206" stroke-width="30" stroke-linejoin="round"/></svg></span>Almanac</a>
   <nav class="nav-links" aria-label="Разделы">
     <a href="#idea">Идея</a>
     <a href="#day">Один день</a>
@@ -67,7 +67,34 @@
 
 <main id="top">
   <!-- Scene stubs: each scene PR fills only its own section (LANDING.md §13). -->
-  <!-- PR 2 · Вега --><section class="hero" id="hero" aria-label="Almanac"></section>
+  <section class="hero" id="hero" aria-label="Almanac">
+    <div class="hero-stage">
+      <div class="aurora" aria-hidden="true"><i></i><i></i></div>
+      <div class="hero-copy" id="heroCopy">
+        <span class="logo intro"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="lgHero" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F59E5C"/><stop offset="1" stop-color="#E8632A"/></linearGradient></defs><rect class="tile" x="16" y="16" width="480" height="480" rx="128" fill="url(#lgHero)"/><path class="dia s" pathLength="100" d="M256 140 L372 256 L256 372 L140 256 Z" fill="none" stroke="#1A1206" stroke-width="30" stroke-linejoin="round"/></svg><span class="ring"></span></span>
+        <h1><span class="l"><span>Где ты сейчас.</span></span><span class="l"><span>Куда движешься.</span></span></h1>
+        <p class="lead">Almanac - дневник, где у каждого дня своя страница. Привычки, тренировки, чтение и фокус на одном экране: открыли утром, отметили в один тап, закрыли.</p>
+        <div class="cta-row">
+          <button class="btn btn-acc" type="button" data-install><svg><use href="#i-down"/></svg>Установить бесплатно</button>
+          <a class="btn btn-soft" href="https://almanac-sorakiels-projects.vercel.app" target="_blank" rel="noopener">Открыть в браузере</a>
+        </div>
+      </div>
+
+      <div class="hero-phone-wrap" id="heroPhoneWrap"><div class="phone" id="heroPhone" aria-label="Живой экран «Сегодня»: отмечайте привычки"></div></div>
+
+      <div class="float" data-f="-1.55,-0.55,-2.6,-1.3,-14"><div class="fc"><span class="fc-flame"><svg><use href="#i-flame"/></svg></span><div><small>Серия</small><span class="big num" id="fStreak">12</span> <b>дней</b></div></div></div>
+      <div class="float" data-f="1.5,-0.62,2.5,-1.2,10"><div class="fc"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-opacity=".18" stroke-width="6"/><circle id="fRing" cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="85" transform="rotate(-90 22 22)" style="transition:stroke-dashoffset .8s var(--ease)"/></svg><div><small>Привычки сегодня</small><span class="big num" id="fDone">1</span><b> из 5</b></div></div></div>
+      <div class="float" data-f="-1.62,0.12,-2.9,0.3,8"><div class="fc"><svg class="mini-wave" viewBox="0 0 200 200" aria-hidden="true"><defs><clipPath id="mwc"><circle cx="100" cy="100" r="90"/></clipPath></defs><circle cx="100" cy="100" r="90" fill="var(--teal)" fill-opacity=".1"/><g clip-path="url(#mwc)"><g class="water" style="transform:translateY(80px)"><path class="w2" d="M0 0 Q25 -9 50 0 T100 0 T150 0 T200 0 T250 0 T300 0 T350 0 T400 0 V220 H0 Z"/><path class="w1" d="M0 0 Q25 -9 50 0 T100 0 T150 0 T200 0 T250 0 T300 0 T350 0 T400 0 V220 H0 Z"/></g></g></svg><div><small>Отдых</small><span class="big num">01:12</span></div></div></div>
+      <div class="float f-hide-m" data-f="1.6,0.08,2.8,0.2,-9"><div class="fc"><span class="mini-cover" aria-hidden="true"></span><div><small>Атомные привычки</small><b>+15 стр</b> <small style="display:inline">· 227 из 320</small></div></div></div>
+      <div class="float" data-f="-1.35,0.72,-2.2,1.5,-6"><div class="fc col"><small>Как прошёл день?</small><div class="mini-faces" id="fFaces"></div><div class="mini-batt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div></div>
+      <div class="float" data-f="1.4,0.7,2.4,1.6,12"><div class="fc lg" style="background:var(--g-tint);padding:10px 16px"><span style="width:10px;height:10px;border-radius:50%;background:var(--green)"></span><b>Синхронизировано</b></div></div>
+      <div class="float f-hide-m" data-f="-1,-0.74,-1.6,-2.2,18"><div class="fc"><span class="ic" style="background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)"><svg><use href="#i-timer"/></svg></span><div><small>Фокус</small><span class="big num">25:00</span></div></div></div>
+      <div class="float f-hide-m" data-f="1,-0.8,1.7,-2.3,-16"><div class="fc"><span class="ic" style="background:color-mix(in srgb,var(--teal) 16%,transparent);color:var(--teal)"><svg><use href="#i-dumb"/></svg></span><div><small>Присед · рекорд</small><span class="big num">92,5</span><b> кг</b></div></div></div>
+
+      <p class="hero-hint lg" id="heroHint"><i aria-hidden="true"></i><b>Попробуйте:</b> отметьте все привычки</p>
+      <span class="scroll-cue" id="cue" aria-hidden="true"></span>
+    </div>
+  </section>
   <section class="wrap year" id="idea">
     <div class="year-row" data-rv>
       <h2>Год - это 365 страниц. <em>Сколько из них ваши?</em></h2>
@@ -96,7 +123,7 @@
 <!-- PR 7 · Орион -->
 <footer class="wrap">
   <div class="foot">
-    <a class="brand" href="#top"><span class="logo" data-logo="plain"></span>Almanac</a>
+    <a class="brand" href="#top"><span class="logo"><svg viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="lgFoot" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F59E5C"/><stop offset="1" stop-color="#E8632A"/></linearGradient></defs><rect class="tile" x="16" y="16" width="480" height="480" rx="128" fill="url(#lgFoot)"/><path class="dia" d="M256 140 L372 256 L256 372 L140 256 Z" fill="none" stroke="#1A1206" stroke-width="30" stroke-linejoin="round"/></svg></span>Almanac</a>
     <nav aria-label="Ссылки внизу"><a href="#idea">Идея</a><a href="#day">Один день</a><a href="#devices">Устройства</a><a href="#support">Поддержать</a></nav>
     <small>© 2026 Almanac. Год, собранный из дней.</small>
   </div>

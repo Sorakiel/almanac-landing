@@ -1,0 +1,118 @@
+import { $, $$, clamp, ease, lerp, odo, ripple, vib } from './fx.js';
+import { register } from './scroll.js';
+import { HABITS, MOODC, face, seal, todayHTML } from './today.js';
+
+/**
+ * Scene 2: the headline, then the Today phone rises to the centre while eight
+ * cards fly in from the edges and settle around it. The phone is live: check
+ * every habit and the day gets sealed.
+ */
+
+const PHONE_W = 340;
+const PHONE_H = 712;
+const FLOAT_RING = 106.8; // circumference of the small ring on the "Привычки сегодня" card
+
+function initPhone(phone) {
+  const habits = HABITS.map((h) => ({ ...h }));
+  phone.innerHTML = todayHTML(habits, true);
+  $('#fFaces').innerHTML = [3, 4, 5]
+    .map((i) => face(i, MOODC[i - 1]).replace('<svg ', `<svg class="${i === 4 ? 'on' : ''}" `))
+    .join('');
+
+  const fDone = $('#fDone');
+  const fRing = $('#fRing');
+  const fStreak = $('#fStreak');
+  const hint = $('#heroHint');
+  const cnt = phone.querySelector('.cnt');
+  const ring = phone.querySelector('.rg0');
+  const ringC = 2 * Math.PI * 40;
+
+  phone.addEventListener('click', (e) => {
+    const b = e.target.closest('.p-check');
+    if (!b) return;
+    const row = b.closest('.p-row');
+    const h = habits.find((x) => x.id === row.dataset.h);
+    h.done = !h.done;
+    vib();
+    row.classList.toggle('done', h.done);
+    b.setAttribute('aria-pressed', h.done);
+    if (h.done) ripple(b);
+
+    const st = row.querySelector('.st');
+    if (st) {
+      const from = h.st;
+      h.st = Math.max(0, h.st + (h.done ? 1 : -1));
+      st.parentNode.style.display = h.st ? 'inline-flex' : 'none';
+      odo(st, from, h.st);
+    }
+
+    const done = habits.filter((x) => x.done).length;
+    const all = done === habits.length;
+    ring.setAttribute('stroke-dashoffset', (ringC * (1 - done / habits.length)).toFixed(1));
+    odo(cnt, +cnt.textContent, done);
+    odo(fDone, +fDone.textContent, done);
+    fRing.setAttribute('stroke-dashoffset', (FLOAT_RING * (1 - done / habits.length)).toFixed(1));
+    if (all) odo(fStreak, 12, 13);
+    hint.innerHTML = all
+      ? '<i aria-hidden="true"></i><b>День закрыт.</b> Так выглядит хорошее утро'
+      : '<i aria-hidden="true"></i><b>Попробуйте:</b> отметьте все привычки';
+    if (all) setTimeout(() => seal(phone), 350);
+  });
+}
+
+export function initHero() {
+  const hero = $('#hero');
+  if (!hero) return;
+  const copy = $('#heroCopy');
+  const wrap = $('#heroPhoneWrap');
+  const phone = $('#heroPhone');
+  const hint = $('#heroHint');
+  const cue = $('#cue');
+  const floats = $$('.float', hero).map((el) => ({ el, d: el.dataset.f.split(',').map(Number) }));
+
+  initPhone(phone);
+
+  // Cached on resize: the bottom of the headline block, where the phone starts.
+  let copyBottom = 0;
+
+  register({
+    el: hero,
+    measure() {
+      copyBottom = copy.offsetTop + copy.offsetHeight;
+    },
+    frame({ vh, vw, reduced, prog }) {
+      if (reduced) return;
+      const p = prog(hero);
+      const e = ease(clamp(p / 0.8, 0, 1));
+      const s = Math.min(1, (vh - 56) / PHONE_H);
+      const pW = PHONE_W * s;
+      const pH = PHONE_H * s;
+
+      copy.style.transform = `translateY(${-e * 180}px) scale(${1 - e * 0.08})`;
+      copy.style.opacity = clamp(1 - p * 3, 0, 1);
+      copy.style.pointerEvents = p > 0.3 ? 'none' : '';
+
+      const y0 = Math.max(vh * 0.55, Math.min(copyBottom + 28, vh - 140));
+      const y1 = Math.max(64, (vh - pH) / 2);
+      wrap.style.transform = `translateY(${lerp(y0, y1, e)}px)`;
+      phone.style.transform = `scale(${s * lerp(0.9, 1, e)}) rotateX(${lerp(30, 0, e)}deg)`;
+
+      // Card positions are fractions of the phone's half-size; they fly from
+      // the far value (x0,y0) to the resting one (x1,y1).
+      const ux = Math.min(pW, vw * 0.3);
+      const uy = pH / 2;
+      const fe = ease(clamp((p - 0.04) / 0.72, 0, 1));
+      const sc = vw < 700 ? 0.78 : 1;
+      for (const { el, d } of floats) {
+        const x = lerp(d[2], d[0], fe) * ux;
+        const y = lerp(d[3], d[1], fe) * uy;
+        el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${lerp(d[4], 0, fe)}deg) scale(${sc})`;
+        el.style.opacity = clamp(fe * 1.6, 0, 1);
+        el.style.filter = `blur(${((1 - fe) * 6).toFixed(1)}px)`;
+      }
+
+      hint.style.opacity = p > 0.82 ? 1 : 0;
+      cue.style.opacity = p < 0.04 ? 1 : 0;
+    },
+  });
+}
