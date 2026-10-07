@@ -97,7 +97,7 @@
 
       <div class="float" data-f="-1.55,-0.55,-2.6,-1.3,-14"><div class="fc"><span class="fc-flame"><svg><use href="#i-flame"/></svg></span><div><small>Серия</small><span class="big num" id="fStreak">12</span> <b>дней</b></div></div></div>
       <div class="float" data-f="1.5,-0.62,2.5,-1.2,10"><div class="fc"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><circle cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-opacity=".18" stroke-width="6"/><circle id="fRing" cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="85" transform="rotate(-90 22 22)" style="transition:stroke-dashoffset .8s var(--ease)"/></svg><div><small>Привычки сегодня</small><span class="big num" id="fDone">1</span><b> из 5</b></div></div></div>
-      <div class="float" data-f="-1.62,0.12,-2.9,0.3,8"><div class="fc"><svg class="mini-wave" viewBox="0 0 200 200" aria-hidden="true"><defs><clipPath id="mwc"><circle cx="100" cy="100" r="90"/></clipPath></defs><circle cx="100" cy="100" r="90" fill="var(--teal)" fill-opacity=".1"/><g clip-path="url(#mwc)"><g class="water" style="transform:translateY(80px)"><path class="w2" d="M0 0 Q25 -9 50 0 T100 0 T150 0 T200 0 T250 0 T300 0 T350 0 T400 0 V220 H0 Z"/><path class="w1" d="M0 0 Q25 -9 50 0 T100 0 T150 0 T200 0 T250 0 T300 0 T350 0 T400 0 V220 H0 Z"/></g></g></svg><div><small>Отдых</small><span class="big num">01:12</span></div></div></div>
+      <div class="float f-hide-m" data-f="-1.62,0.12,-2.9,0.3,8"><div class="fc"><svg class="mini-wave" viewBox="0 0 200 200" aria-hidden="true"><defs><clipPath id="mwc"><circle cx="100" cy="100" r="90"/></clipPath></defs><circle cx="100" cy="100" r="90" fill="var(--teal)" fill-opacity=".1"/><g clip-path="url(#mwc)"><g class="water" style="transform:translateY(80px)"><path class="w2" d="M0 0 Q25 -9 50 0 T100 0 T150 0 T200 0 T250 0 T300 0 T350 0 T400 0 V220 H0 Z"/><path class="w1" d="M0 0 Q25 -9 50 0 T100 0 T150 0 T200 0 T250 0 T300 0 T350 0 T400 0 V220 H0 Z"/></g></g></svg><div><small>Отдых</small><span class="big num">01:12</span></div></div></div>
       <div class="float f-hide-m" data-f="1.6,0.08,2.8,0.2,-9"><div class="fc"><span class="mini-cover" aria-hidden="true"></span><div><small>Атомные привычки</small><b>+15 стр</b> <small style="display:inline">· 227 из 320</small></div></div></div>
       <div class="float" data-f="-1.35,0.72,-2.2,1.5,-6"><div class="fc col"><small>Как прошёл день?</small><div class="mini-faces" id="fFaces"></div><div class="mini-batt"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div></div>
       <div class="float" data-f="1.4,0.7,2.4,1.6,12"><div class="fc lg" style="background:var(--g-tint);padding:10px 16px"><span style="width:10px;height:10px;border-radius:50%;background:var(--green)"></span><b>Синхронизировано</b></div></div>
@@ -334,6 +334,9 @@
     <small>© 2026 Almanac. Год, собранный из дней.</small>
   </div>
 </footer>
+
+<!-- Phones only: the install button lives here instead of the nav (LANDING.md §6а п.2). -->
+<div class="mdock lg" id="mdock" aria-hidden="true"><span class="logo" data-logo="plain"></span><div><b>Almanac</b><small id="mdockSub">Бесплатно, без рекламы</small></div><button class="btn btn-acc" type="button" data-install tabindex="-1">Установить</button></div>
 
 <!-- PR 8 · Лира: окно установки v2 -->
 <div class="sheet-wrap" id="sheet" hidden>

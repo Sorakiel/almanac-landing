@@ -44,6 +44,7 @@
   .fc{padding:9px 11px;border-radius:16px;gap:8px}.fc .big{font-size:20px}.fc b{font-size:13.5px}.fc small{font-size:11px}
   .fc .ic{width:30px;height:30px}
   .float.f-hide-m{display:none}
+  .float{z-index:3}
 }
 @media (prefers-reduced-motion:reduce){
   .hero{height:auto}.hero-stage{position:relative;height:auto;padding-block:120px 60px}

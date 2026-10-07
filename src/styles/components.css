@@ -171,3 +171,18 @@ footer{margin-top:110px;border-top:1px solid var(--sep);padding-block:28px 40px}
 .water .w1{opacity:.85;animation:waveX 3.2s linear infinite}
 .water .w2{opacity:.4;animation:waveX 5.5s linear infinite reverse;transform:translateY(-5px)}
 @keyframes waveX{from{translate:0 0}to{translate:-100px 0}}
+
+/* ===== phones: bottom install dock replaces the nav button (LANDING.md §6а п.1-2) ===== */
+.mdock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:60;height:64px;border-radius:32px;display:none;align-items:center;gap:12px;padding:0 8px 0 10px;transform:translateY(140%);opacity:0;transition:transform .45s var(--spring),opacity .3s}
+.mdock.on{transform:none;opacity:1}
+.mdock .logo{width:40px;height:40px;flex:none}
+.mdock div{display:grid;line-height:1.2;min-width:0}
+.mdock b{font:700 15.5px var(--display);letter-spacing:-.01em}
+.mdock small{font-size:12.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdock .btn{margin-left:auto;height:48px;padding:0 20px;border-radius:24px;font-size:15.5px}
+@media (max-width:700px){
+  .mdock{display:flex}
+  .nav .btn-acc{display:none}
+  footer{padding-bottom:110px}
+}
+@media (prefers-reduced-motion:reduce){.mdock{transition:opacity .2s}}
