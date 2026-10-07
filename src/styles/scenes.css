@@ -354,6 +354,11 @@
 .final h2{font-size:clamp(40px,6.5vw,92px);line-height:.98;font-weight:800;letter-spacing:-.05em;max-width:11em}
 .final p{color:var(--ink2);font-size:19px;max-width:30em}
 .final .meter{font:500 15px var(--mono);color:var(--ink2)}
+/* Phones: the 900px glow is wider than the stage, so its clipped edges read as hard lines
+   when the scene pins and unpins. Same glow, but faded out toward the stage's top and bottom. */
+@media (max-width:900px){
+  .final-stage::before{top:0;bottom:0;height:auto;border-radius:0;background:radial-gradient(circle 636px at 50% 50%,rgba(239,136,87,calc(.06 + var(--fp,0)*.22)),transparent 62%);-webkit-mask-image:linear-gradient(transparent,#000 22%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 22%,#000 70%,transparent)}
+}
 @media (prefers-reduced-motion:reduce){.final{height:auto}.final-stage{position:relative;height:auto;padding-block:120px 60px}}
 
 /* ===== support (#support) ===== */
