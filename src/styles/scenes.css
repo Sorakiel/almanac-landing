@@ -70,12 +70,13 @@
 .year-stats div{display:grid}
 .year-stats b{font:500 clamp(32px,4vw,48px)/1 var(--mono);letter-spacing:-.04em}
 .year-stats small{color:var(--ink2);font-size:14px;margin-top:6px}
-.months{display:grid;grid-template-columns:repeat(12,1fr);margin-top:12px;color:var(--ink3);font-size:12.5px}
+.months{display:grid;grid-template-columns:repeat(12,1fr);margin-top:12px;color:var(--ink2);font-size:12.5px}
 @media (max-width:700px){.year-grid{grid-template-columns:repeat(27,minmax(0,1fr));grid-template-rows:repeat(14,auto)}.months{display:none}}
 
 /* ===== manifesto ===== */
 .manifesto{padding-block:140px 0}
 .manifesto p{font:700 clamp(28px,4.1vw,56px)/1.14 var(--display);letter-spacing:-.035em;max-width:20em}
+.manifesto .vh{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .manifesto p span{color:color-mix(in srgb,var(--ink) 18%,transparent);transition:color .4s}
 .manifesto p span.lit{color:var(--ink)}
 .manifesto p span.acc.lit{color:var(--accent)}
@@ -92,7 +93,7 @@
 .timeline .line{position:absolute;left:0;right:0;top:14px;height:2px;background:var(--sep);border-radius:1px}
 .timeline .fill{position:absolute;left:0;top:14px;height:2px;border-radius:1px;background:linear-gradient(90deg,#F5C76A,#F59E5C,#E8632A,var(--violet));width:100%;transform:scaleX(0);transform-origin:left}
 .timeline .sun{position:absolute;left:0;top:5px;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:#F5C76A;box-shadow:0 0 18px #F5C76A;transition:background .3s,box-shadow .3s}
-.timeline span{position:absolute;top:-2px;font:500 12px var(--mono);color:var(--ink3);transform:translateX(-50%)}
+.timeline span{position:absolute;top:-2px;font:500 12px var(--mono);color:var(--ink2);transform:translateX(-50%)}
 .timeline span.on{color:var(--ink)}
 .day-track{display:flex;gap:28px;align-items:center;padding-inline:max(20px,calc((100vw - var(--max))/2 + 20px));will-change:transform}
 .panel{flex:none;width:min(980px,84vw);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;align-items:center;transition:opacity .4s,transform .5s var(--ease)}
