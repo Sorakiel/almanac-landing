@@ -103,14 +103,23 @@
 .panel-copy .t small{font:600 15px var(--display);letter-spacing:0;color:var(--accent);display:block;margin-bottom:6px}
 .panel-copy h3{font-size:clamp(24px,2.6vw,34px);font-weight:700;letter-spacing:-.03em;line-height:1.1}
 .panel-copy p{color:var(--ink2);font-size:17px;max-width:26em}
+.swipe-hint{display:none;align-items:center;gap:8px;font:500 13px var(--mono);color:var(--ink2)}
+.swipe-hint svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(5px)}}
 @media (max-width:900px){
+  /* phones and tablets: the day becomes a swipe carousel, the timeline is its pager */
   .day{height:auto;margin-top:100px}
   .day-stage{position:relative;height:auto;padding-top:0;overflow:visible}
-  .timeline{display:none}
-  .day-track{flex-direction:column;align-items:stretch;gap:56px;padding-inline:20px;margin-top:36px;transform:none!important}
-  .panel{width:100%;grid-template-columns:minmax(0,1fr);gap:20px}
-  .panel.dim{opacity:1;transform:none}
+  .timeline{margin-top:18px;margin-inline:6px}
+  .timeline span{cursor:pointer;padding:4px 2px}
+  .day-track{align-items:flex-start;gap:12px;margin-top:22px;padding:6px 20px 28px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:20px;scrollbar-width:none;-webkit-overflow-scrolling:touch;transform:none!important}
+  .day-track::-webkit-scrollbar{display:none}
+  .panel{width:min(560px,calc(100vw - 48px));grid-template-columns:minmax(0,1fr);gap:18px;scroll-snap-align:center;scroll-snap-stop:always}
+  .panel.dim{opacity:.4;transform:scale(.96)}
+  .panel-copy .t{font-size:44px}
+  .panel-copy p{font-size:16px}
   .demo{min-height:0;padding:18px;border-radius:26px}
+  .swipe-hint{display:inline-flex}
 }
 
 /* day demos: workout */
@@ -199,6 +208,7 @@
 .rf-text{width:100%;text-align:left;background:var(--card);border-radius:14px;padding:12px 14px;font:400 14px/1.45 var(--ui);color:var(--ink2);min-height:64px}
 @media (prefers-reduced-motion:reduce){
   .day{height:auto}.day-stage{position:relative;height:auto}.day-track{flex-direction:column;transform:none!important}.panel{width:100%}
+  .swipe-hint svg{animation:none}
 }
 
 /* ===== why (#why) ===== */
