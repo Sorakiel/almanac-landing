@@ -14,7 +14,6 @@
 @media (max-width:640px){.grab{display:block}}
 .sheet-h{display:flex;align-items:center;gap:12px}
 .sheet-h h3{font-size:24px;font-weight:700;letter-spacing:-.02em}
-.sheet-h .ver{font:500 13px var(--mono);color:var(--ink3);margin-left:4px}
 .sheet-h .iconbtn{margin-left:auto;background:var(--card2)}
 .seg{display:flex;gap:4px;padding:4px;border-radius:18px;background:var(--card2);overflow-x:auto;scrollbar-width:none}
 .seg::-webkit-scrollbar{display:none}
