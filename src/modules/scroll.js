@@ -21,6 +21,7 @@ const scenes = [];
 const heights = new WeakMap();
 const extra = new Set();
 let started = false;
+const coarse = window.matchMedia('(pointer: coarse)').matches;
 const bar = document.getElementById('prog');
 let docRange = 1;
 let ticking = false;
@@ -113,7 +114,15 @@ export function initScroll() {
   measureAll();
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', () => {
-    measureAll();
+    // A mobile browser's toolbar collapsing on scroll fires resize with only the
+    // height changed. Layout is sized in svh/lvh and doesn't move, so a full
+    // re-measure of every scene there is pure cost (and made iOS stutter).
+    if (window.innerWidth === ctx.vw && coarse) {
+      ctx.vh = window.innerHeight;
+      docRange = Math.max(1, document.documentElement.scrollHeight - ctx.vh);
+    } else {
+      measureAll();
+    }
     schedule();
   });
   // Fonts swapping in, demos rendering and images decoding all change the page

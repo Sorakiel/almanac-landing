@@ -72,19 +72,34 @@ export function initHero() {
 
   initPhone(phone);
 
-  // Cached on resize: the bottom of the headline block, where the phone starts.
+  // Cached on resize: the bottom of the headline block, where the phone starts,
+  // and the stage height. The stage is 100svh, so on iOS it stays put while the
+  // toolbar collapses; innerHeight would move the phone on every collapse.
   let copyBottom = 0;
+  let stageH = 0;
+  let heroH = 0;
+  const stage = hero.firstElementChild;
+  // Floats only move while fe changes (or after a re-measure); past the end of
+  // the fly-in nothing is written.
+  let lastFe = -1;
 
   register({
     el: hero,
     measure() {
       copyBottom = copy.offsetTop + copy.offsetHeight;
+      stageH = stage.offsetHeight;
+      heroH = hero.offsetHeight;
+      lastFe = -1;
     },
-    frame({ vh, vw, reduced, prog }) {
+    frame({ vw, reduced }) {
       if (reduced) return;
-      const p = prog(hero);
+      const vh = stageH;
+      const range = heroH - vh;
+      const p = range > 0 ? clamp(-hero.getBoundingClientRect().top / range, 0, 1) : 0;
       const e = ease(clamp(p / 0.8, 0, 1));
-      const s = Math.min(1, (vh - 56) / PHONE_H);
+      const narrow = vw < 700;
+      // On a phone the whole frame must clear the nav: 64px top + 12px bottom.
+      const s = Math.min(1, (vh - (narrow ? 76 : 56)) / PHONE_H);
       const pW = PHONE_W * s;
       const pH = PHONE_H * s;
 
@@ -99,16 +114,20 @@ export function initHero() {
 
       // Card positions are fractions of the phone's half-size; they fly from
       // the far value (x0,y0) to the resting one (x1,y1).
-      const ux = Math.min(pW, vw * 0.3);
-      const uy = pH / 2;
       const fe = ease(clamp((p - 0.04) / 0.72, 0, 1));
-      const sc = vw < 700 ? 0.78 : 1;
-      for (const { el, d } of floats) {
-        const x = lerp(d[2], d[0], fe) * ux;
-        const y = lerp(d[3], d[1], fe) * uy;
-        el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${lerp(d[4], 0, fe)}deg) scale(${sc})`;
-        el.style.opacity = clamp(fe * 1.6, 0, 1);
-        el.style.filter = `blur(${((1 - fe) * 6).toFixed(1)}px)`;
+      if (fe !== lastFe) {
+        lastFe = fe;
+        const ux = Math.min(pW, vw * 0.3);
+        const uy = pH / 2;
+        const sc = narrow ? 0.78 : 1;
+        for (const { el, d } of floats) {
+          const x = lerp(d[2], d[0], fe) * ux;
+          const y = lerp(d[3], d[1], fe) * uy;
+          el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${lerp(d[4], 0, fe)}deg) scale(${sc})`;
+          el.style.opacity = clamp(fe * 1.6, 0, 1);
+          // A per-frame blur on eight layers is what made iOS stutter; phones fade only.
+          el.style.filter = narrow ? '' : `blur(${((1 - fe) * 6).toFixed(1)}px)`;
+        }
       }
 
       hint.style.opacity = p > 0.82 ? 1 : 0;
