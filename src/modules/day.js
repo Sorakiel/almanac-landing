@@ -1,6 +1,6 @@
 import { reduced } from './env.js';
-import { lerp } from './fx.js';
-import { register, wide } from './scroll.js';
+import { clamp, lerp } from './fx.js';
+import { register, requestFrame, wide } from './scroll.js';
 import { initMorning, initReading, initEvening } from './dayDemos.js';
 import { initFocus } from './dayFocus.js';
 import { initWorkout } from './dayWorkout.js';
@@ -37,14 +37,19 @@ export function initDay() {
   });
 
   function gotoPanel(i) {
+    const behavior = reduced ? 'auto' : 'smooth';
     if (!wide()) {
-      panels[i].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      // Below 900px the day is a swipe carousel: page sideways, centring the panel.
+      const p = panels[i];
+      track.scrollTo({ left: p.offsetLeft - (track.clientWidth - p.offsetWidth) / 2, behavior });
       return;
     }
     const top = section.getBoundingClientRect().top + scrollY;
     const range = section.offsetHeight - innerHeight;
-    scrollTo({ top: top + range * (i / (panels.length - 1)), behavior: reduced ? 'auto' : 'smooth' });
+    scrollTo({ top: top + range * (i / (panels.length - 1)), behavior });
   }
+  labels.forEach((s, i) => s.addEventListener('click', () => gotoPanel(i)));
+  track.addEventListener('scroll', requestFrame, { passive: true });
 
   initMorning();
   const focus = initFocus();
@@ -52,30 +57,38 @@ export function initDay() {
   initReading({ onFocus: () => { gotoPanel(1); focus.pick(25); } });
   initEvening();
 
-  // Layout reads stay out of the frame loop: the track's travel only changes on resize.
+  // Layout reads stay out of the frame loop: travel distances only change on resize.
   let dist = 0;
+  let swipe = 0;
   let tlWidth = 0;
   let active = -1;
-  let flat = null;
+  let stacked = false;
   register({
     el: section,
     measure() {
       dist = track.scrollWidth - innerWidth;
+      swipe = track.scrollWidth - track.clientWidth;
       tlWidth = timeline.offsetWidth;
     },
     frame({ prog, reduced: still }) {
-      if (still || !wide()) {
-        if (flat !== true) {
-          flat = true;
-          active = -1;
+      // Reduced motion: no pinning, no carousel, every panel lit.
+      if (still) {
+        if (!stacked) {
+          stacked = true;
           panels.forEach((p) => p.classList.remove('dim'));
           track.style.transform = '';
         }
         return;
       }
-      flat = false;
-      const dp = prog(section);
-      track.style.transform = `translateX(${-dp * dist}px)`;
+      let dp;
+      if (wide()) {
+        dp = prog(section);
+        track.style.transform = `translateX(${-dp * dist}px)`;
+      } else {
+        // The carousel is the pager: its own scroll drives the timeline and the sky.
+        track.style.transform = '';
+        dp = swipe > 0 ? clamp(track.scrollLeft / swipe, 0, 1) : 0;
+      }
       const ai = Math.round(dp * (panels.length - 1));
       if (ai !== active) {
         active = ai;

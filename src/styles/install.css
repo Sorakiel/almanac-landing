@@ -105,3 +105,7 @@
 .sheet2 .tlist li{grid-template-columns:minmax(0,1fr)}
 .sheet2 .tlist li::before{margin-top:0}
 @media (max-width:760px){.pane-vis:has(.qr){display:none}}
+.only-phone{display:none}
+@media (max-width:760px){.only-wide{display:none}.only-phone{display:inline}}
+/* phone: the sheet is dragged down by its handle or header, so those take the touch */
+@media (max-width:640px){.sheet2 .grab,.sheet2 .sheet-h{touch-action:none}.sheet2 .grab{box-sizing:content-box;padding:8px 40px;margin:-8px auto -4px;background-clip:content-box}}

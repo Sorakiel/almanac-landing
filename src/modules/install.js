@@ -4,6 +4,10 @@ import { logoSVG } from './logo.js';
 import { guessPlatform } from './platform.js';
 
 const CLOSE_MS = 240; // sheetOut .25s
+const SHEET_MAX = 640; // the sheet is a bottom drawer up to this width (install.css)
+const DRAG_CLOSE = 110; // px pulled down that closes the drawer
+const DRAG_OUT_MS = 220; // drawer slides out before the close animation
+const DRAG_RESET_MS = 280;
 const HEIGHT_MS = 420; // body height transition .35s + a frame of slack
 const TOAST_MS = 1600;
 const TOAST_FALLBACK_MS = 3000;
@@ -116,6 +120,44 @@ export function initInstall() {
       lastFocus?.focus?.();
     }, CLOSE_MS);
   };
+
+  // Phone: the drawer follows a finger on its handle or header; far enough down closes it.
+  let drag = null;
+  sheet.addEventListener('pointerdown', (e) => {
+    if (innerWidth > SHEET_MAX || e.button > 0) return;
+    if (!e.target.closest('.grab,.sheet-h') || e.target.closest('button')) return;
+    drag = { y: e.clientY, dy: 0, id: e.pointerId };
+    sheet.style.transition = 'none';
+  });
+  addEventListener(
+    'pointermove',
+    (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      drag.dy = Math.max(0, e.clientY - drag.y);
+      sheet.style.transform = `translateY(${drag.dy}px)`;
+    },
+    { passive: true },
+  );
+  const endDrag = () => {
+    if (!drag) return;
+    const { dy } = drag;
+    drag = null;
+    sheet.style.transition = 'transform .3s var(--ease)';
+    if (dy <= DRAG_CLOSE) {
+      sheet.style.transform = '';
+      return;
+    }
+    sheet.style.transform = 'translateY(110%)';
+    setTimeout(() => {
+      close();
+      setTimeout(() => {
+        sheet.style.transform = '';
+        sheet.style.transition = '';
+      }, DRAG_RESET_MS);
+    }, DRAG_OUT_MS);
+  };
+  addEventListener('pointerup', endDrag);
+  addEventListener('pointercancel', endDrag);
 
   const showToast = (text, ms) => {
     toast.textContent = text;
