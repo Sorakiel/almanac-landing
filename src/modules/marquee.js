@@ -1,24 +1,27 @@
-const MODULES = [
-  'Привычки',
-  'Тренировки',
-  'Чтение',
-  'Инсайты',
-  'Рефлексия',
-  'Финансы (скоро)',
-  'Сон (скоро)',
-];
+// Scene 7: two giant rows that move only while the page scrolls, in opposite directions.
+import { reduced } from './env.js';
+import { register } from './scroll.js';
 
-/** Builds the looping module ticker. Content is duplicated once so the CSS marquee loop is seamless. */
+const SPEED = 0.45;
+const GAP = 40;
+
 export function initMarquee() {
-  const track = document.getElementById('marqueeTrack');
-  const frag = document.createDocumentFragment();
+  const root = document.querySelector('.mq');
+  if (!root || reduced) return;
+  const rows = [...root.querySelectorAll('[data-mq]')].map((el) => ({ el, dir: Number(el.dataset.mq), w: 0 }));
 
-  for (let rep = 0; rep < 2; rep++) {
-    MODULES.forEach((name) => {
-      const span = document.createElement('span');
-      span.innerHTML = `<b>◇</b>${name}`;
-      frag.appendChild(span);
-    });
-  }
-  track.appendChild(frag);
+  register({
+    el: root,
+    measure() {
+      rows.forEach((r) => {
+        r.w = r.el.firstElementChild.offsetWidth + GAP;
+      });
+    },
+    frame({ sy }) {
+      rows.forEach((r) => {
+        const x = (((sy * SPEED * r.dir) % r.w) + r.w) % r.w;
+        r.el.style.transform = `translateX(${-x}px)`;
+      });
+    },
+  });
 }
