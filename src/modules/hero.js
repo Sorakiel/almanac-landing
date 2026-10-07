@@ -68,23 +68,43 @@ export function initHero() {
   const phone = $('#heroPhone');
   const hint = $('#heroHint');
   const cue = $('#cue');
-  const floats = $$('.float', hero).map((el) => ({ el, d: el.dataset.f.split(',').map(Number) }));
+  const floats = $$('.float', hero).map((el) => ({ el, d: el.dataset.f.split(',').map(Number), w: 0 }));
 
   initPhone(phone);
 
-  // Cached on resize: the bottom of the headline block, where the phone starts.
+  // Cached on resize: the bottom of the headline block, where the phone starts,
+  // and the stage height. The stage is 100svh, so on iOS it stays put while the
+  // toolbar collapses; innerHeight would move the phone on every collapse.
   let copyBottom = 0;
+  let stageH = 0;
+  let heroH = 0;
+  const stage = hero.firstElementChild;
+  // Floats only move while fe changes (or after a re-measure); past the end of
+  // the fly-in nothing is written.
+  let lastFe = -1;
 
   register({
     el: hero,
     measure() {
       copyBottom = copy.offsetTop + copy.offsetHeight;
+      stageH = stage.offsetHeight;
+      heroH = hero.offsetHeight;
+      // Card widths for the phone's edge clamp; hidden cards measure 0 and are skipped.
+      for (const f of floats) f.w = f.el.offsetWidth;
+      lastFe = -1;
     },
-    frame({ vh, vw, reduced, prog }) {
+    frame({ vw, reduced }) {
       if (reduced) return;
-      const p = prog(hero);
+      const vh = stageH;
+      const range = heroH - vh;
+      const p = range > 0 ? clamp(-hero.getBoundingClientRect().top / range, 0, 1) : 0;
       const e = ease(clamp(p / 0.8, 0, 1));
-      const s = Math.min(1, (vh - 56) / PHONE_H);
+      const narrow = vw < 700;
+      // Phones: narrower (70% of the width) so the cards can sit on its corners,
+      // and never taller than the space under the nav (64px top, 12px bottom).
+      const s = narrow
+        ? Math.min(1, (vw * 0.7) / PHONE_W, (vh - 76) / PHONE_H)
+        : Math.min(1, (vh - 56) / PHONE_H);
       const pW = PHONE_W * s;
       const pH = PHONE_H * s;
 
@@ -98,17 +118,28 @@ export function initHero() {
       phone.style.transform = `scale(${s * lerp(0.9, 1, e)}) rotateX(${lerp(30, 0, e)}deg)`;
 
       // Card positions are fractions of the phone's half-size; they fly from
-      // the far value (x0,y0) to the resting one (x1,y1).
-      const ux = Math.min(pW, vw * 0.3);
-      const uy = pH / 2;
+      // the far value (x0,y0) to the resting one (x1,y1). On a phone the four
+      // visible cards land on the phone's corners like stickers, keep 30% of
+      // their tilt and stay 8px inside the screen.
       const fe = ease(clamp((p - 0.04) / 0.72, 0, 1));
-      const sc = vw < 700 ? 0.78 : 1;
-      for (const { el, d } of floats) {
-        const x = lerp(d[2], d[0], fe) * ux;
-        const y = lerp(d[3], d[1], fe) * uy;
-        el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${lerp(d[4], 0, fe)}deg) scale(${sc})`;
-        el.style.opacity = clamp(fe * 1.6, 0, 1);
-        el.style.filter = `blur(${((1 - fe) * 6).toFixed(1)}px)`;
+      if (fe !== lastFe) {
+        lastFe = fe;
+        const ux = Math.min(pW, vw * 0.3);
+        const uy = pH / 2;
+        const sc = narrow ? 0.74 : 1;
+        for (const { el, d, w } of floats) {
+          let x = lerp(d[2], d[0], fe) * ux;
+          const y = lerp(d[3], narrow ? (d[1] < 0 ? -0.9 : 0.84) : d[1], fe) * uy;
+          const rot = lerp(d[4], narrow ? d[4] * 0.3 : 0, fe);
+          if (narrow && w) {
+            const lim = vw / 2 - (w * sc) / 2 - 8;
+            x = clamp(x, -lim, lim);
+          }
+          el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${rot}deg) scale(${sc})`;
+          el.style.opacity = clamp(fe * 1.6, 0, 1);
+          // A per-frame blur on the cards is what made iOS stutter; phones fade only.
+          el.style.filter = narrow ? '' : `blur(${((1 - fe) * 6).toFixed(1)}px)`;
+        }
       }
 
       hint.style.opacity = p > 0.82 ? 1 : 0;
