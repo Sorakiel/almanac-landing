@@ -1,4 +1,6 @@
-/* Shared pieces used by more than one scene. Scene-only styles live in scenes.css. */
+/* Shared pieces used by more than one scene. Scene-only styles live in scenes.css.
+   Small text uses --ink2, never --ink3: --ink3 (from the reference) is below AA
+   at caption sizes in both themes. */
 
 /* glass, same recipe as the app's tab bar */
 .lg{position:relative;background:var(--g-tint);-webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);
@@ -66,7 +68,8 @@
 .p-scroll::-webkit-scrollbar{display:none}
 .p-head{display:flex;align-items:flex-end;justify-content:space-between;margin:4px 2px 12px}
 .p-head small{display:block;font:500 13.5px var(--ui);color:var(--ink2)}
-.p-head h3{font:700 30px/1.1 var(--ui);letter-spacing:-.02em}
+/* not a heading: the phone is a demo, a real h3 would break the page outline */
+.p-head .p-title{display:block;font:700 30px/1.1 var(--ui);letter-spacing:-.02em}
 .p-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,var(--accent),#c2562a);display:grid;place-items:center;color:#fff;font:700 15px var(--ui)}
 .p-sum{background:var(--card);border-radius:22px;padding:12px 14px;display:flex;align-items:center;gap:14px}
 .p-sum svg{width:84px;height:84px;flex:none}
@@ -75,9 +78,9 @@
 .p-legend div{display:flex;align-items:center;gap:7px;font:400 13.5px var(--ui);white-space:nowrap}
 .p-legend i{width:8px;height:8px;border-radius:50%;flex:none}
 .p-legend b{margin-left:auto;font:500 15px var(--mono)}
-.p-legend small{color:var(--ink3);font:400 11px var(--mono);margin-left:3px;white-space:nowrap}
+.p-legend small{color:var(--ink2);font:400 11px var(--mono);margin-left:3px;white-space:nowrap}
 .p-sec{display:flex;justify-content:space-between;align-items:baseline;margin:13px 4px 6px;font:600 18px var(--ui)}
-.p-sec span{font:400 13px var(--ui);color:var(--ink3)}
+.p-sec span{font:400 13px var(--ui);color:var(--ink2)}
 .p-group{background:var(--card);border-radius:20px;overflow:hidden}
 .p-row{display:flex;align-items:center;gap:6px;min-height:54px;padding:0 12px 0 4px;position:relative;transition:opacity .3s}
 .p-row+.p-row::before{content:"";position:absolute;left:52px;right:0;top:0;height:1px;background:var(--sep)}
@@ -158,7 +161,7 @@ footer{margin-top:110px;border-top:1px solid var(--sep);padding-block:28px 40px}
 .foot nav{display:flex;flex-wrap:wrap;gap:6px 20px;margin-left:auto}
 .foot nav a{text-decoration:none;color:var(--ink2);font-size:15px}
 .foot nav a:hover{color:var(--ink)}
-.foot small{color:var(--ink3);font-size:14px;width:100%}
+.foot small{color:var(--ink2);font-size:14px;width:100%}
 
 @media (prefers-reduced-motion:reduce){.demo::before{display:none}}
 
