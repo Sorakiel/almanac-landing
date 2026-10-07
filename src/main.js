@@ -15,6 +15,7 @@ import { initDay } from './modules/day.js';
 import { initWhy } from './modules/why.js';
 import { initMarquee } from './modules/marquee.js';
 import { initFinal } from './modules/final.js';
+import { initDevices } from './modules/devices.js';
 
 // Logo placeholders first: scenes measure their layout and logos are part of it.
 mountLogos();
@@ -28,6 +29,7 @@ initDay();
 initWhy();
 initMarquee();
 initFinal();
+initDevices();
 
 initReveal();
 initScroll();
