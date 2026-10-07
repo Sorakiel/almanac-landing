@@ -16,6 +16,7 @@ const FLY_MS = 700;
 const SYNCED_HIDE_MS = 1400;
 const IDLE_MS = 8000;
 const AUTO_MS = 3200;
+const DOT_PARK = -20;
 
 function initThemes() {
   const split = document.getElementById('split');
@@ -43,6 +44,7 @@ function initSync() {
   let lastUser = 0;
   let auto = 0;
   let hideTimer = 0;
+  let flight = 0;
 
   phoneList.innerHTML = list.map((h) => rowHTML(h, true)).join('');
 
@@ -55,12 +57,15 @@ function initSync() {
   const sync = (h, btn) => {
     const row = document.querySelector(`#deskList [data-sync="${h.id}"]`);
     if (!row) return;
-    const arrive = () => {
+    const land = () => {
       row.classList.toggle('d', h.done);
       row.classList.remove('flash');
       void row.offsetWidth; // restart the flash keyframes
       row.classList.add('flash');
       deskCount();
+    };
+    const arrive = () => {
+      land();
       cap.className = 'capsule lg ok';
       capText.textContent = 'Синхронизировано';
       clearTimeout(hideTimer);
@@ -78,19 +83,26 @@ function initSync() {
     const bx = b.left + b.width / 2 - sr.left;
     const by = b.top + b.height / 2 - sr.top;
     path.setAttribute('d', `M${ax} ${ay} C${ax - 60} ${ay - 140} ${bx + 160} ${by - 90} ${bx} ${by}`);
+    const id = ++flight;
+    dot.setAttribute('cx', ax);
+    dot.setAttribute('cy', ay);
     link.classList.add('on');
     cap.className = 'capsule lg spin';
     capText.textContent = 'Отправляю…';
     const len = path.getTotalLength();
     const t0 = performance.now();
     const step = (t) => {
+      // A newer tap took over the dot and the capsule: this one only lands its row.
+      if (id !== flight) return land();
       const k = Math.min(1, (t - t0) / FLY_MS);
       const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
       const p = path.getPointAtLength(len * e);
       dot.setAttribute('cx', p.x);
       dot.setAttribute('cy', p.y);
       if (k < 1) return requestAnimationFrame(step);
-      dot.setAttribute('cx', -20);
+      // Park off-stage: the svg overflows the stage, so a dot left on the row's height shows beside the window.
+      dot.setAttribute('cx', DOT_PARK);
+      dot.setAttribute('cy', DOT_PARK);
       link.classList.remove('on');
       arrive();
     };
