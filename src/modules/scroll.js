@@ -19,6 +19,8 @@ import { clamp } from './fx.js';
 
 const scenes = [];
 const heights = new WeakMap();
+const extra = new Set();
+let started = false;
 const bar = document.getElementById('prog');
 let docRange = 1;
 let ticking = false;
@@ -29,7 +31,15 @@ const ctx = {
   sy: window.scrollY,
   reduced,
   prog(el) {
-    const range = (heights.get(el) ?? el.offsetHeight) - ctx.vh;
+    let h = heights.get(el);
+    if (h === undefined) {
+      // An element that isn't a scene root: measure once, then it is cached
+      // like the rest and refreshed on every re-measure.
+      h = el.offsetHeight;
+      heights.set(el, h);
+      extra.add(el);
+    }
+    const range = h - ctx.vh;
     return range > 0 ? clamp(-el.getBoundingClientRect().top / range, 0, 1) : 0;
   },
 };
@@ -60,6 +70,7 @@ function measureAll() {
   ctx.vh = window.innerHeight;
   ctx.vw = window.innerWidth;
   docRange = Math.max(1, document.documentElement.scrollHeight - ctx.vh);
+  extra.forEach((el) => heights.set(el, el.offsetHeight));
   scenes.forEach(measureScene);
 }
 
@@ -84,7 +95,9 @@ function schedule() {
 export function register(scene) {
   const s = { ...scene, active: !io || !scene.el, settle: true };
   scenes.push(s);
-  measureScene(s);
+  // Before initScroll every scene is measured in one batch; measuring here
+  // would force a layout between each scene's DOM setup.
+  if (started) measureScene(s);
   if (io && s.el) io.observe(s.el);
   schedule();
 }
@@ -96,6 +109,7 @@ export const requestFrame = schedule;
 export const wide = () => ctx.vw > 900;
 
 export function initScroll() {
+  started = true;
   measureAll();
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', () => {
