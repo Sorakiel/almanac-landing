@@ -6,7 +6,7 @@ import { initTheme } from './modules/theme.js';
 import { initScroll } from './modules/scroll.js';
 import { initReveal } from './modules/reveal.js';
 import { initHero } from './modules/hero.js';
-import { initInstallModal } from './modules/installModal.js';
+import { initInstall } from './modules/install.js';
 import { initPlatformDownloads } from './modules/platformDownloads.js';
 import { initFaq } from './modules/faq.js';
 import { initYear } from './modules/year.js';
@@ -33,6 +33,6 @@ initDevices();
 
 initReveal();
 initScroll();
-initInstallModal();
+initInstall();
 initPlatformDownloads();
 initFaq();
